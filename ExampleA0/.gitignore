@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/java,eclipse,androidstudio
+# Created by https://www.gitignore.io/api/androidstudio
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -126,76 +126,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-### Eclipse ###
-
-.metadata
-tmp/
-*.tmp
-*.bak
-*~.nib
-.settings/
-.loadpath
-.recommenders
-
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
-
-# CDT-specific (C/C++ Development Tooling)
-.cproject
-
-# Java annotation processor (APT)
-.factorypath
-
-# PDT-specific (PHP Development Tools)
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# Tern plugin
-.tern-project
-
-# TeXlipse plugin
-.texlipse
-
-# STS (Spring Tool Suite)
-.springBeans
-
-# Code Recommenders
-.recommenders/
-
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
-
-### Eclipse Patch ###
-# Eclipse Core		
-
-# JDT-specific (Eclipse Java Development Tools)		
-
-### Java ###
-# Compiled class file
-
-# Log file
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-
-# Package Files #
-*.jar
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-
-# End of https://www.gitignore.io/api/java,eclipse,androidstudio
+# End of https://www.gitignore.io/api/androidstudio
