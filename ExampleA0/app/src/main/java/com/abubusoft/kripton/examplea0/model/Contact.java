@@ -1,15 +1,28 @@
 package com.abubusoft.kripton.examplea0.model;
 
+import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindAdapter;
+import com.abubusoft.kripton.annotation.BindDisabled;
+import com.abubusoft.kripton.annotation.BindType;
+
 import java.util.Date;
 
 /**
  * Created by xcesco on 25/08/2017.
  */
 
+@BindType
 public class Contact {
+    @Bind(value="guru", order = 3)
     protected String name;
+
+    @Bind(order = 2)
     protected String surname;
+
+    @Bind(order = 1)
+    @BindAdapter(adapter=DateAdapter.class, dataType = Long.class)
     protected Date birthDay;
+
     protected byte[] image;
 
     public String getName() {

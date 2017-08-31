@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -22,6 +31,11 @@ android {
 dependencies {
     annotationProcessor 'com.abubusoft:kripton-processor:2.0.1'
     compile 'com.abubusoft:kripton-android-library:2.0.1'
+
+    compile 'com.abubusoft:kripton-dataformat-yaml:2.0.1'
+    compile 'com.abubusoft:kripton-dataformat-cbor:2.0.1'
+    compile 'com.abubusoft:kripton-dataformat-smile:2.0.1'
+   compile 'com.abubusoft:kripton-dataformat-properties:2.0.1'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
