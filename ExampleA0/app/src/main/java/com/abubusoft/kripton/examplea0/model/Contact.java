@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.examplea0.model;
 
+import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindDisabled;
@@ -12,6 +14,7 @@ import java.util.Date;
  */
 
 @BindType
+@BindTable()
 public class Contact {
     @Bind(value="guru", order = 3)
     protected String name;

@@ -14,6 +14,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.examplea0.model.Contact;
 import com.abubusoft.kripton.examplea0.model.Student;
+import com.abubusoft.kripton.examplea0.persistence.BindStudentsAsyncTask;
 import com.abubusoft.kripton.examplea0.persistence.BindStudentsDaoFactory;
 import com.abubusoft.kripton.examplea0.persistence.BindStudentsDataSource;
 import com.abubusoft.kripton.examplea0.persistence.StudentDaoImpl;
@@ -24,10 +25,31 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // declare
+    BindStudentsAsyncTask<Void, Void, List<Student>> asyncTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // instanziate asynctask
+        asyncTask=new BindStudentsAsyncTask<Void, Void, List<Student>>() {
+            @Override
+            public List<Student> onExecute(BindStudentsDataSource dataSource) throws Throwable {
+                // execute retrieve method
+                return dataSource.getStudentDao().getAllStudents();
+            }
+
+            @Override
+            public void onFinish(List<Student> result) {
+                // display on UI
+            }
+        };
+
+        // execute asynctask
+        asyncTask.execute();
+
 
         Contact bean=new Contact();
         bean.setName("Tonj");
