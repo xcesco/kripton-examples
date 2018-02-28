@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 @BindContentProvider(authority = "com.abubusoft.contentprovidersample.provider")
-@BindDataSource(daoSet = {CheeseDao.class},fileName = "sample.db", version = 1)
+@BindDataSource(daoSet = {CheeseDao.class}, fileName = "sample.db", version = 1, populator = SamplePopulator.class)
 public interface SampleDataSource {
 
 }
