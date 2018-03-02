@@ -68,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 public Loader<Cursor> onCreateLoader(int id, Bundle args) {
                     switch (id) {
                         case LOADER_CHEESES:
-                            //return new CursorLoader(getApplicationContext(), SampleContentProvider.URI_CHEESE, new String[]{Cheese.COLUMN_NAME}, null, null, null);
-                            return new CursorLoader(getApplicationContext(), BindSampleContentProvider.URI_PATH_CHEESE_1, new String[]{CheeseTable.COLUMN_NAME}, null, null, null);
-                            //return null;
+                            return new CursorLoader(getApplicationContext(), BindSampleContentProvider.URI_CHEESE_SELECT_ALL, new String[]{CheeseTable.COLUMN_NAME}, null, null, null);
                         default:
                             throw new IllegalArgumentException();
                     }

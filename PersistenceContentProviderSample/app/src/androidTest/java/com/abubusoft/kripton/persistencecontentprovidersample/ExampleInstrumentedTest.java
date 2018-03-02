@@ -1,11 +1,19 @@
 package com.abubusoft.kripton.persistencecontentprovidersample;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +29,5 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.abubusoft.kripton.persistencecontentprovidersample", appContext.getPackageName());
     }
 }

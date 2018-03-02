@@ -24,8 +24,8 @@ android {
 }
 
 dependencies {
-    annotationProcessor 'com.abubusoft:kripton-processor:3.4.2'
-    implementation 'com.abubusoft:kripton-android-library:3.4.2'
+    annotationProcessor 'com.abubusoft:kripton-processor:3.5.0'
+    implementation 'com.abubusoft:kripton-android-library:3.5.0'
     // Support Libraries
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
