@@ -7,11 +7,13 @@ import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.BindXmlNamespace;
+import com.abubusoft.kripton.annotation.BindXmlType;
 
 @BindType("item")
 @BindXmlType(namespaces={
-		@BindXmlNamespace("dc","http://purl.org/dc/elements/1.1/"),
-		@BindXmlNamespace("content","http://purl.org/dc/elements/1.1/"),
+		@BindXmlNamespace(prefix="dc",uri="http://purl.org/dc/elements/1.1/"),
+		@BindXmlNamespace(prefix="content",uri="http://purl.org/dc/elements/1.1/"),
 })
 public class Article extends Entity {
 	public String title;
