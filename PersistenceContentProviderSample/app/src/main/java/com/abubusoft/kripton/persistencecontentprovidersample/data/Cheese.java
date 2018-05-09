@@ -16,11 +16,6 @@
 
 package com.abubusoft.kripton.persistencecontentprovidersample.data;
 
-import android.content.ContentValues;
-import android.provider.BaseColumns;
-
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 

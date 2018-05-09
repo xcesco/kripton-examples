@@ -18,9 +18,11 @@ package com.abubusoft.kripton.persistencecontentprovidersample.data;
 
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 
 @BindContentProvider(authority = "com.abubusoft.contentprovidersample.provider")
-@BindDataSource(daoSet = {CheeseDao.class}, fileName = "sample.db", version = 1, populator = SamplePopulator.class)
+@BindDataSourceOptions(populator = SamplePopulator.class)
+@BindDataSource(daoSet = {CheeseDao.class}, fileName = "sample.db", version = 1)
 public interface SampleDataSource {
 
 }

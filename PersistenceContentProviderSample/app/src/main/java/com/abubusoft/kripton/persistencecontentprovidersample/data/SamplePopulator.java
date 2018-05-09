@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.persistencecontentprovidersample.data;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
@@ -144,16 +146,14 @@ public class SamplePopulator implements SQLitePopulator {
     };
 
     @Override
-    public void execute() {
+    public void execute(SQLiteDatabase database) {
         BindSampleDataSource dataSource = BindSampleDataSource.instance();
 
         dataSource.execute((BindSampleDaoFactory daoFactory) -> {
             CheeseDaoImpl dao = daoFactory.getCheeseDao();
 
             for (String item:CHEESES) {
-                Cheese bean=new Cheese();
-                bean.name=item;
-                dao.insert(bean);
+                dao.insert(item);
             }
 
             return TransactionResult.COMMIT;

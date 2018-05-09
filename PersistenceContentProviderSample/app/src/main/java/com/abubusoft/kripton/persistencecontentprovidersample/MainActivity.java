@@ -32,10 +32,6 @@ import android.widget.TextView;
 import com.abubusoft.kripton.persistencecontentprovidersample.data.BindSampleContentProvider;
 import com.abubusoft.kripton.persistencecontentprovidersample.data.CheeseTable;
 
-//import com.example.android.contentprovidersample.data.Cheese;
-//import com.example.android.contentprovidersample.provider.SampleContentProvider;
-
-
 /**
  * Not very relevant to Room. This just shows data from {@link com.abubusoft.kripton.persistencecontentprovidersample.data.BindSampleContentProvider}.
  *
