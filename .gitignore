@@ -201,3 +201,7 @@ tmp/
 # End of https://www.gitignore.io/api/java,eclipse,androidstudio
 .idea
 .gradle
+/PersistenceMigrationsSample/gradle.properties
+/PersistenceMigrationsSample/gradle/wrapper/gradle-wrapper.properties
+/PersistenceMigrationsSample/gradlew
+/PersistenceMigrationsSample/gradlew.bat
