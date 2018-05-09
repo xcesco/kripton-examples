@@ -3,8 +3,6 @@ package com.abubusoft.kripton.persistencecontentprovidersample;
 import android.app.Application;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.persistencecontentprovidersample.data.BindSampleDataSource;
 
 public class AppApplication extends Application {
 

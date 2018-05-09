@@ -8,7 +8,6 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 /**
  * Created by xcesco on 28/02/2018.
  */
-
 public class SamplePopulator implements SQLitePopulator {
 
     /** Dummy data. */

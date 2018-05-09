@@ -18,7 +18,7 @@ android {
     }
 }
 
-def kriptonVersion = "4.0.0-rc.10"
+def kriptonVersion = "4.0.0-rc.12"
 
 dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"

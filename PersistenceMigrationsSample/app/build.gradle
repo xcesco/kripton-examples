@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.abubusoft.kriptonpersistencemigrationssample"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // used by Kripton, to test migrations
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["kripton.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // used by Room, to test migrations
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+
+        // used by the room flavors to avoid duplication
+        room.java.srcDirs += "src/room_common/java"
+        room2.java.srcDirs += "src/room_common/java"
+        room3.java.srcDirs += "src/room_common/java"
+
+        androidTest.java.srcDirs += "src/androidTestRoom_Common/java"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "db"
+
+    productFlavors {
+        sqlite {
+            // Uses SQLiteOpenHelper and traditional SQLite interfaces. Database version 1
+            dimension "db"
+        }
+        room {
+            // Replaces implementation with Room and provides migrations to database version 2
+            dimension "db"
+        }
+        room2 {
+            // Updates the DB to a new schema, database version 3
+            dimension "db"
+        }
+        room3 {
+            // Updates the DB to a new schema, database version 4.
+            // Provides migration paths to go from version 2 to 3, version 3 to 4 and version 2 to 4
+            dimension "db"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
