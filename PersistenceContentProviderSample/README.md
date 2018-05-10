@@ -4,7 +4,7 @@ Kripton with Content Providers Sample
 This sample demonstrates how to expose data stored in the Kripton persistence library with Android's Content Provider
 framework.
 
-This is a porting of the 
+This is a porting of the [Room Persistence Content Provider Sample](https://github.com/googlesamples/android-architecture-components/tree/master/PersistenceContentProviderSample).
 
 License
 --------
