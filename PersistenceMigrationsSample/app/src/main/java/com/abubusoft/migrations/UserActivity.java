@@ -23,6 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.android.persistence.migrations.LocalUserDataSource;
+import com.example.android.persistence.migrations.R;
+import com.example.android.persistence.migrations.UserRepository;
+
 /**
  * Main screen of the app. Displays a user name and allows the option to update the user name.
  */

@@ -20,6 +20,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
+import com.abubusoft.migrations.UserDataSource;
+
 /**
  * Concrete implementation of the {@link LocalUserDataSource} that works with Room.
  */
