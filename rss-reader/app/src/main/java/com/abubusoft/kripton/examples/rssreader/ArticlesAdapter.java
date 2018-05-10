@@ -1,6 +1,8 @@
 package com.abubusoft.kripton.examples.rssreader;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,20 +14,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.examples.rssreader.model.Article;
 import com.bumptech.glide.Glide;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
- 
+
     private Context mContext;
     private List<Article> albumList;
- 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
         public ImageView thumbnail, overflow;
- 
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -34,30 +39,35 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
- 
- 
+
+
     public ArticlesAdapter(Context mContext, List<Article> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }
- 
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.article_layout, parent, false);
- 
+
         return new MyViewHolder(itemView);
     }
- 
+
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Article album = albumList.get(position);
         holder.title.setText(album.title);
         holder.count.setText(album.description);
- 
+
         // loading album cover using Glide library
         Glide.with(mContext).load(album.thumbnail.url).into(holder.thumbnail);
- 
+
+        holder.thumbnail.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(album.link.toString()));
+            KriptonLibrary.context().startActivity(intent);
+        });
+
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +75,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             }
         });
     }
- 
+
     /**
      * Showing popup menu when tapping on 3 dots
      */
@@ -77,15 +87,15 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
     }
- 
+
     /**
      * Click listener for popup menu items
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
- 
+
         public MyMenuItemClickListener() {
         }
- 
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
@@ -100,7 +110,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             return false;
         }
     }
- 
+
     @Override
     public int getItemCount() {
         return albumList.size();
