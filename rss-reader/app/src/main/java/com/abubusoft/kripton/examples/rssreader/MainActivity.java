@@ -152,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
         //albumList.add(a);
         adapter.notifyDataSetChanged();
-
-
     }
 
     /**

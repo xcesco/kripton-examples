@@ -18,14 +18,12 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.examples.rssreader.model.Article;
 import com.bumptech.glide.Glide;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Article> albumList;
+    private List<Article> list;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -40,10 +38,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
     }
 
-
-    public ArticlesAdapter(Context mContext, List<Article> albumList) {
+    public ArticlesAdapter(Context mContext, List<Article> list) {
         this.mContext = mContext;
-        this.albumList = albumList;
+        this.list = list;
     }
 
     @Override
@@ -56,7 +53,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Article album = albumList.get(position);
+        Article album = list.get(position);
         holder.title.setText(album.title);
         holder.count.setText(album.description);
 
@@ -65,7 +62,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         holder.thumbnail.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(album.link.toString()));
-            KriptonLibrary.context().startActivity(intent);
+            KriptonLibrary.getContext().startActivity(intent);
         });
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +110,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return albumList.size();
+        return list.size();
     }
 }

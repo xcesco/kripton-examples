@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.sqlite.SQLiteTestDatabase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
