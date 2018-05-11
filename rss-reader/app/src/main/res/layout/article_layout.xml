@@ -23,6 +23,8 @@
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="false"
+                tools:src="@tools:sample/backgrounds/scenic"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -33,7 +35,7 @@
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
-                tools:text="Title"
+                tools:text="@tools:sample/lorem"
                 android:textColor="@color/album_title"
                 android:textSize="@dimen/album_title" />
 
@@ -45,15 +47,16 @@
                 android:paddingBottom="@dimen/songs_count_padding_bottom"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
-                tools:text="Subtitle"
+                tools:text="@tools:sample/lorem"
                 android:textSize="@dimen/songs_count" />
 
             <ImageView
-                android:id="@+id/overflow"
-                android:layout_width="@dimen/ic_album_overflow_width"
-                android:layout_height="@dimen/ic_album_overflow_height"
-                android:layout_alignParentRight="true"
+                android:id="@+id/checked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_below="@id/thumbnail"
+                android:src="@drawable/ic_check_circle_green_500_24dp"
                 android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
                 android:scaleType="centerCrop"
                  />

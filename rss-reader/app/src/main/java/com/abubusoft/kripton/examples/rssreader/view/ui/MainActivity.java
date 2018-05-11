@@ -1,12 +1,11 @@
-package com.abubusoft.kripton.examples.rssreader;
+package com.abubusoft.kripton.examples.rssreader.view.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,13 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.abubusoft.kripton.android.BindAsyncTaskType;
-import com.abubusoft.kripton.examples.rssreader.api.RssController;
-import com.abubusoft.kripton.examples.rssreader.model.Article;
-import com.abubusoft.kripton.examples.rssreader.model.Channel;
-import com.abubusoft.kripton.examples.rssreader.model.RSSFeed;
-import com.abubusoft.kripton.examples.rssreader.persistence.BindRssAsyncTask;
-import com.abubusoft.kripton.examples.rssreader.persistence.BindRssDataSource;
+import com.abubusoft.kripton.examples.rssreader.R;
+import com.abubusoft.kripton.examples.rssreader.service.api.RssService;
+import com.abubusoft.kripton.examples.rssreader.service.model.Article;
+import com.abubusoft.kripton.examples.rssreader.service.model.Channel;
+import com.abubusoft.kripton.examples.rssreader.service.model.RssFeed;
+import com.abubusoft.kripton.examples.rssreader.service.persistence.BindRssAsyncTask;
+import com.abubusoft.kripton.examples.rssreader.service.persistence.BindRssDataSource;
+import com.abubusoft.kripton.examples.rssreader.view.adapter.ArticlesAdapter;
+import com.abubusoft.kripton.examples.rssreader.viewmodel.RssViewModel;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -38,19 +39,37 @@ public class MainActivity extends AppCompatActivity {
     private ArticlesAdapter adapter;
     private List<Article> albumList;
 
+    RssViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         initCollapsingToolbar();
 
+        viewModel = ViewModelProviders.of(this).get(RssViewModel.class);
+
+        // observeViewModel(viewModel);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         albumList = new ArrayList<>();
-        adapter = new ArticlesAdapter(this, albumList);
+        adapter = new ArticlesAdapter(this, viewModel, albumList);
+
+        viewModel.getChannel().observe(this, channel -> {
+            if (channel!=null)
+            Glide.with(MainActivity.this).load(channel.image.url).into((ImageView) findViewById(R.id.backdrop));
+        });
+
+        viewModel.getArticles().observe(this, articles -> {
+            prepareAlbums(articles);
+        });
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -58,36 +77,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        BindRssAsyncTask.Simple<Channel> a=new BindRssAsyncTask.Simple<Channel>() {
-            @Override
-            public Channel onExecute(BindRssDataSource dataSource) throws Throwable {
-                RssController a=new RssController();
-                RSSFeed result = a.execute().execute().body();
-
-                return result.channels.get(0);
-            }
-
-            @Override
-            public void onFinish(Channel result) {
-                Glide.with(MainActivity.this).load(result.image.url).into((ImageView) findViewById(R.id.backdrop));
-                prepareAlbums(result.articles);
-            }
-        };
-
-        a.execute();
-
-//        BindAs
-//
-//        
-//        fedda.execute().execute().body();
-
-
-
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -105,9 +94,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id)
+        {
+            case R.id.action_refresh:
+                viewModel.checkArticles();
+                return true;
+
         }
+    /*    if (id == R.id.action_settings) {
+            return true;
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

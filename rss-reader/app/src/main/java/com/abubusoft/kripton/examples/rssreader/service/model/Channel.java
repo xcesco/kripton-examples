@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.examples.rssreader.model;
+package com.abubusoft.kripton.examples.rssreader.service.model;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +31,9 @@ public class Channel extends Entity {
 	public Date lastBuildDate;
 	
 	public Image image;
+
+	@BindSqlColumn(parentEntity = RssFeed.class)
+	public long rssFeedId;
 
 	@Bind("item")
 	@BindSqlRelation(foreignKey = "channelId")

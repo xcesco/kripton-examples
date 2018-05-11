@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.examples.rssreader.model;
+package com.abubusoft.kripton.examples.rssreader.service.model;
 
 import java.net.URL;
 
@@ -34,4 +34,6 @@ public class Article extends Entity {
 	@Bind("thumbnail")
 	@BindXml(namespace="media")
 	public Thumbnail thumbnail;
+
+	public boolean read;
 }

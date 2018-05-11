@@ -5,4 +5,5 @@
     <string name="action_play_next">Next</string>
     <string name="backdrop_title">RSS</string>
     <string name="backdrop_subtitle">Subtitle</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

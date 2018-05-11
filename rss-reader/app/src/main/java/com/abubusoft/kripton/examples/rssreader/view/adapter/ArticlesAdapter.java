@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.examples.rssreader;
+package com.abubusoft.kripton.examples.rssreader.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,30 +15,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.examples.rssreader.model.Article;
+import com.abubusoft.kripton.examples.rssreader.R;
+import com.abubusoft.kripton.examples.rssreader.service.model.Article;
+import com.abubusoft.kripton.examples.rssreader.service.repository.RssRepository;
+import com.abubusoft.kripton.examples.rssreader.viewmodel.RssViewModel;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
 
+    private final RssViewModel viewModel;
     private Context mContext;
     private List<Article> list;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
-        public ImageView thumbnail, overflow;
+        public ImageView thumbnail, checked;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+            checked = (ImageView) view.findViewById(R.id.checked);
         }
     }
 
-    public ArticlesAdapter(Context mContext, List<Article> list) {
+    public ArticlesAdapter(Context mContext, RssViewModel viewModel, List<Article> list) {
+        this.viewModel=viewModel;
         this.mContext = mContext;
         this.list = list;
     }
@@ -53,22 +58,30 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Article album = list.get(position);
-        holder.title.setText(album.title);
-        holder.count.setText(album.description);
+        Article article = list.get(position);
+        holder.title.setText(article.title);
+        holder.count.setText(article.description);
+
+        if (article.read) {
+            holder.checked.setVisibility(View.VISIBLE);
+        } else {
+            holder.checked.setVisibility(View.INVISIBLE);
+        }
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(album.thumbnail.url).into(holder.thumbnail);
+        Glide.with(mContext).load(article.thumbnail.url).into(holder.thumbnail);
 
         holder.thumbnail.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(album.link.toString()));
+            viewModel.markArticleAsRead(article);
+
+            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(article.link.toString()));
             KriptonLibrary.getContext().startActivity(intent);
         });
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
+        holder.checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+                showPopupMenu(holder.checked);
             }
         });
     }

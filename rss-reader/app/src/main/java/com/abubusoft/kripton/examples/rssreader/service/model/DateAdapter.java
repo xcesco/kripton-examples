@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.examples.rssreader.model;
+package com.abubusoft.kripton.examples.rssreader.service.model;
 
 import java.text.DateFormat;
 import java.text.ParseException;

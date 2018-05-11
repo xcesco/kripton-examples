@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.examples.rssreader.model;
+package com.abubusoft.kripton.examples.rssreader.service.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
