@@ -4,6 +4,13 @@
     tools:context="com.abubusoft.kripton.examples.rssreader.view.ui.MainActivity">
 
     <item
+        android:id="@+id/spinner"
+        android:title="Filter news"
+        app:actionViewClass="android.widget.Spinner"
+        android:background="#ff00"
+        app:showAsAction="collapseActionView" />
+
+    <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
         android:icon="@drawable/ic_refresh_white_24dp"

@@ -13,6 +13,7 @@ import com.abubusoft.kripton.examples.rssreader.service.model.RssFeed;
 import com.abubusoft.kripton.examples.rssreader.service.persistence.DaoArticleImpl;
 import com.abubusoft.kripton.examples.rssreader.service.persistence.DaoChannelImpl;
 import com.abubusoft.kripton.examples.rssreader.service.persistence.DaoRssImpl;
+import com.abubusoft.kripton.examples.rssreader.service.persistence.FilterType;
 
 import java.util.List;
 
@@ -35,20 +36,35 @@ public class RssRepository {
             public void onResponse(Call<RssFeed> call, Response<RssFeed> response) {
                 RssFeed rssFeed = response.body();
                 BindRssDataSource.getInstance().execute(daoFactory -> {
+                    RssFeed currentRss=null;
                     //TRICK: for the moment we retrieve only from bbc, uid will be *always* bbc
-                    rssFeed.uid = RssService.RSS_NAME;
                     DaoRssImpl daoRss = daoFactory.getDaoRss();
                     DaoChannelImpl daoChannels = daoFactory.getDaoChannel();
                     DaoArticleImpl daoArticles = daoFactory.getDaoArticle();
 
-                    daoRss.insert(rssFeed);
+                    currentRss=daoRss.selectOne(RssService.RSS_NAME);
+                    if (currentRss==null) {
+                        currentRss=new RssFeed();
+                        currentRss.version=rssFeed.version;
+                        currentRss.uid=RssService.RSS_NAME;
+                        daoRss.insert(currentRss);
+                    }
                     for (Channel channelItem : rssFeed.channels) {
-                        channelItem.rssFeedId=rssFeed.id;
-                        daoChannels.insert(channelItem);
+                        Channel currentChannel=daoChannels.selectOneByRssFeedId(currentRss.id);
+                        if (currentChannel==null) {
+                            channelItem.rssFeedId=rssFeed.id;
+                            daoChannels.insert(channelItem);
+                            currentChannel=channelItem;
+                        }
 
                         for (Article article : channelItem.articles) {
-                            article.channelId=channelItem.id;
-                            daoArticles.insert(article);
+                            Article currentArticle=daoArticles.selectByGuid(currentChannel.id, article.guid);
+                            if (currentArticle==null) {
+                                article.channelId=currentChannel.id;
+                                daoArticles.insert(article);
+                                currentArticle=article;
+                            }
+
                         }
                     }
 
@@ -69,7 +85,7 @@ public class RssRepository {
     }
 
     public LiveData<List<Article>> getArticleList() {
-        return this.dataSource.getDaoArticle().selectByChannel();
+        return this.dataSource.getDaoArticle().selectByChannel(FilterType.SKIP_READ_ARTICLE.getSql());
     }
 
     private static RssRepository instance;
@@ -87,7 +103,7 @@ public class RssRepository {
      */
     public void markArticleAsRead(Article article) {
         this.dataSource.executeBatch(daoFactory -> {
-            daoFactory.getDaoArticle().update(article.id, true);
+            daoFactory.getDaoArticle().update(article.id, article.channelId, true);
             return null;
         });
     }

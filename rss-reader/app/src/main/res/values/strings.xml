@@ -6,4 +6,10 @@
     <string name="backdrop_title">RSS</string>
     <string name="backdrop_subtitle">Subtitle</string>
     <string name="action_refresh">Refresh</string>
+
+    <array name="category">
+        <item>All</item>
+        <item>Read</item>
+        <item>Unread</item>
+    </array>
 </resources>

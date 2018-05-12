@@ -72,10 +72,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         Glide.with(mContext).load(article.thumbnail.url).into(holder.thumbnail);
 
         holder.thumbnail.setOnClickListener(view -> {
-            viewModel.markArticleAsRead(article);
-
             Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(article.link.toString()));
             KriptonLibrary.getContext().startActivity(intent);
+
+            viewModel.markArticleAsRead(article);
         });
 
         holder.checked.setOnClickListener(new View.OnClickListener() {

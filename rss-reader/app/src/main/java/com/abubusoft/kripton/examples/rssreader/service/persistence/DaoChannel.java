@@ -16,6 +16,9 @@ public interface DaoChannel extends DaoBase<Channel> {
     @BindSqlSelect(where="rssFeedId=${rssFeedId}", childrenSelects = {@BindSqlChildSelect(field = "articles", method = "selectByChannelUd")})
     List<Channel> selectByRssFeedId(long rssFeedId);
 
+    @BindSqlSelect(where="rssFeedId=${rssFeedId}")
+    Channel selectOneByRssFeedId(long rssFeedId);
+
     @BindSqlSelect
     LiveData<Channel> selectOne();
 }

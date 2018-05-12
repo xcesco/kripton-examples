@@ -32,11 +32,12 @@ ext {
 dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
+    androidTestImplementation "com.abubusoft:kripton-sqlite-test-library:${kriptonVersion}"
 
     implementation "android.arch.lifecycle:runtime:${archVersion}"
     implementation "android.arch.lifecycle:extensions:${archVersion}"
 
-    androidTestImplementation "com.abubusoft:kripton-sqlite-test-library:${kriptonVersion}"
+
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
