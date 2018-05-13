@@ -29,6 +29,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     private Context mContext;
     private List<Article> list;
 
+    public void updateValues(List<Article> articles) {
+        list.clear();
+        list.addAll(articles);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
         public ImageView thumbnail, checked;
@@ -107,7 +112,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
+        public boolean onMenuItemClick(MenuItem menuItem) {/*
+
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
@@ -116,7 +122,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
                     Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
-            }
+            }*/
             return false;
         }
     }

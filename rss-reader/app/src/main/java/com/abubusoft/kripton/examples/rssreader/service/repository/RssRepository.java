@@ -3,10 +3,7 @@ package com.abubusoft.kripton.examples.rssreader.service.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.examples.rssreader.service.model.Channel;
 import com.abubusoft.kripton.examples.rssreader.service.persistence.BindRssDataSource;
 import com.abubusoft.kripton.examples.rssreader.service.api.RssService;
@@ -80,10 +77,10 @@ public class RssRepository {
 
             @Override
             public void onFailure(Call<RssFeed> call, Throwable throwable) {
-
+                // Error handling will be explained in the next article …
             }
 
-            // Error handling will be explained in the next article …
+
         });
 
     }
@@ -115,9 +112,5 @@ public class RssRepository {
 
     public LiveData<Channel> getChannel() {
         return this.dataSource.getDaoChannel().selectOne();
-    }
-
-    public List<Article> updateFilter(FilterType filter) {
-        return this.dataSource.executeBatch(daoFactory -> daoFactory.getDaoArticle().selectByChannelForLiveData(filter.getSql()));
     }
 }

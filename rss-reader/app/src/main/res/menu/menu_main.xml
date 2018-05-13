@@ -5,9 +5,8 @@
 
     <item
         android:id="@+id/spinner"
-        android:title="Filter news"
+        android:title="Filters"
         app:actionViewClass="android.widget.Spinner"
-        android:background="#ff00"
         app:showAsAction="collapseActionView" />
 
     <item
@@ -17,19 +16,19 @@
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_add_favourite"
-        android:orderInCategory="101"
-        android:title="@string/action_add_favourite" />
+    <!--<item-->
+        <!--android:id="@+id/action_add_favourite"-->
+        <!--android:orderInCategory="101"-->
+        <!--android:title="@string/action_add_favourite" />-->
 
-    <item
-        android:id="@+id/action_play_next"
-        android:orderInCategory="102"
-        android:title="@string/action_play_next" />
+    <!--<item-->
+        <!--android:id="@+id/action_play_next"-->
+        <!--android:orderInCategory="102"-->
+        <!--android:title="@string/action_play_next" />-->
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="103"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="103"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
 </menu>

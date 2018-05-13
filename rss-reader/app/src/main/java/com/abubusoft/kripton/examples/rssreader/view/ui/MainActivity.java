@@ -1,6 +1,5 @@
 package com.abubusoft.kripton.examples.rssreader.view.ui;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -22,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.examples.rssreader.R;
 import com.abubusoft.kripton.examples.rssreader.service.model.Article;
 import com.abubusoft.kripton.examples.rssreader.service.persistence.FilterType;
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArticlesAdapter adapter;
-    private List<Article> albumList;
 
     RssViewModel viewModel;
 
@@ -58,31 +57,32 @@ public class MainActivity extends AppCompatActivity {
 
         initCollapsingToolbar();
 
+        // view model management
+        // 1- create view model
         viewModel = ViewModelProviders.of(this).get(RssViewModel.class);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        albumList = new ArrayList<>();
-        adapter = new ArticlesAdapter(this, viewModel, albumList);
-
-        // load image
+        // 2- observe channel header
         viewModel.getChannel().observe(this, channel -> {
-            if (channel != null)
+            if (channel != null) {
                 Glide.with(MainActivity.this).load(channel.image.url).into((ImageView) findViewById(R.id.backdrop));
+        } else {
+                Logger.info("No data found, download articles");
+                viewModel.downloadArticles();
+            }
         });
-
-        // load articles
+        // 3- observe articles
         viewModel.getArticles().observe(this, articles -> prepareArticles(articles));
+        // 4- update filter
+        viewModel.updateFilter(FilterType.ALL);
 
+        // init adapter (it need viewModel)
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        adapter = new ArticlesAdapter(this, viewModel, new ArrayList<>());
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
     }
-
-    FilterType filter = FilterType.ALL;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,18 +93,18 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) item.getActionView();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
-                R.array.article_filter_text, R.layout.spinner_dropdown_item);
+                R.array.article_filter_text, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter = valueOf(filterValues[position]);
+                FilterType filter = valueOf(filterValues[position]);
                 viewModel.updateFilter(filter);
 
                 Toast.makeText(MainActivity.this,
-                        "you selected: " + filterValues[position],
+                        "Filter value " + filterValues[position],
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -174,8 +174,7 @@ public class MainActivity extends AppCompatActivity {
      * Adding few albums for testing
      */
     private void prepareArticles(List<Article> articles) {
-        albumList.clear();
-        albumList.addAll(articles);
+        adapter.updateValues(articles);
 
         //albumList.add(a);
         adapter.notifyDataSetChanged();
