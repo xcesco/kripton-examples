@@ -16,9 +16,9 @@ import java.util.List;
 
 public class RssViewModel extends ViewModel {
 
-    private MutableLiveData<List<Article>> articles = null;
-
     private FilterType filter = FilterType.ALL;
+
+    private MutableLiveData<List<Article>> articles = null;
 
     private RssRepository repository = RssRepository.getInstance();
 
@@ -26,11 +26,10 @@ public class RssViewModel extends ViewModel {
         return repository.getChannel();
     }
 
-    public LiveData<List<Article>> getArticles() {
-        if (articles == null) {
-            articles = repository.getArticleList();
+    public MutableLiveData<List<Article>> getArticles() {
+        if (this.articles == null) {
+            this.articles = this.repository.getArticleList(this.filter);
         }
-
         return articles;
     }
 
@@ -41,10 +40,14 @@ public class RssViewModel extends ViewModel {
     public void downloadArticles() {
         repository.downloadArticles();
 
-       // loadArticles(filter);
+        // loadArticles(filter);
     }
 
     public void updateFilter(FilterType filter) {
-        repository.updateFilter(filter);
+        this.filter=filter;
+        KriptonLibrary.getExecutorService().submit(() -> {
+            articles.postValue(repository.updateFilter(filter));
+        });
     }
+
 }

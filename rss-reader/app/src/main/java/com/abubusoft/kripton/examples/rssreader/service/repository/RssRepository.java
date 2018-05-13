@@ -28,9 +28,6 @@ public class RssRepository {
 
     private RssService rssService = new RssService();
 
-    private MutableLiveData<List<Article>> articles = null;
-    private FilterType filter = FilterType.ALL;
-
     /**
      * retrieves articles from rest services
      */
@@ -91,22 +88,8 @@ public class RssRepository {
 
     }
 
-    public MutableLiveData<List<Article>> getArticleList() {
-        if (this.articles == null) {
-            this.articles = this.dataSource.getDaoArticle().selectByChannel(this.filter.getSql());
-        }
-        return articles;
-    }
-
-    public void updateFilter(FilterType filter) {
-        this.filter = filter;
-        KriptonLibrary.getExecutorService().submit(() -> {
-            this.dataSource.executeBatch(daoFactory -> {
-                articles.postValue(this.dataSource.getDaoArticle().selectByChannelForLiveData(filter.getSql()));
-                return null;
-            });
-
-        });
+    public MutableLiveData<List<Article>> getArticleList(FilterType filter) {
+        return this.dataSource.getDaoArticle().selectByChannel(filter.getSql());
     }
 
     private static RssRepository instance;
@@ -134,4 +117,7 @@ public class RssRepository {
         return this.dataSource.getDaoChannel().selectOne();
     }
 
+    public List<Article> updateFilter(FilterType filter) {
+        return this.dataSource.executeBatch(daoFactory -> daoFactory.getDaoArticle().selectByChannelForLiveData(filter.getSql()));
+    }
 }
