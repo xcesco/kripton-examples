@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.examples.rssreader.service.persistence;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
@@ -17,10 +18,7 @@ public interface DaoArticle extends DaoBase<Article> {
     void update(long id, long channelId, boolean read);
 
     @BindSqlSelect
-    LiveData<List<Article>> selectByChannel();
-
-    @BindSqlSelect
-    LiveData<List<Article>> selectByChannel(@BindSqlDynamicWhere String where);
+    MutableLiveData<List<Article>> selectByChannel(@BindSqlDynamicWhere String where);
 
     @BindSqlSelect(where = "channelId=${channelId}")
     List<Article> selectByChannelUd(long channelId);

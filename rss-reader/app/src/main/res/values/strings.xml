@@ -7,9 +7,15 @@
     <string name="backdrop_subtitle">Subtitle</string>
     <string name="action_refresh">Refresh</string>
 
-    <array name="category">
+    <array name="article_filter_text">
         <item>All</item>
         <item>Read</item>
         <item>Unread</item>
+    </array>
+
+    <array name="article_filter_value">
+        <item>ALL</item>
+        <item>READ</item>
+        <item>UNREAD</item>
     </array>
 </resources>

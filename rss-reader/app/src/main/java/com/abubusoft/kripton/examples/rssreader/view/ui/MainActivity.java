@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.examples.rssreader.view.ui;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -19,22 +20,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.abubusoft.kripton.examples.rssreader.R;
-import com.abubusoft.kripton.examples.rssreader.service.api.RssService;
 import com.abubusoft.kripton.examples.rssreader.service.model.Article;
-import com.abubusoft.kripton.examples.rssreader.service.model.Channel;
-import com.abubusoft.kripton.examples.rssreader.service.model.RssFeed;
-import com.abubusoft.kripton.examples.rssreader.service.persistence.BindRssAsyncTask;
-import com.abubusoft.kripton.examples.rssreader.service.persistence.BindRssDataSource;
+import com.abubusoft.kripton.examples.rssreader.service.persistence.FilterType;
 import com.abubusoft.kripton.examples.rssreader.view.adapter.ArticlesAdapter;
 import com.abubusoft.kripton.examples.rssreader.viewmodel.RssViewModel;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.abubusoft.kripton.examples.rssreader.service.persistence.FilterType.*;
 
 // https://www.androidhive.info/2016/05/android-working-with-card-view-and-recycler-view/
 // https://www.androidhive.info/2016/01/android-working-with-recycler-view/
@@ -46,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
     RssViewModel viewModel;
 
+    private String[] filterValues;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        filterValues = getResources().getStringArray(R.array.article_filter_value);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
         albumList = new ArrayList<>();
         adapter = new ArticlesAdapter(this, viewModel, albumList);
 
+        // load image
         viewModel.getChannel().observe(this, channel -> {
-            if (channel!=null)
-            Glide.with(MainActivity.this).load(channel.image.url).into((ImageView) findViewById(R.id.backdrop));
+            if (channel != null)
+                Glide.with(MainActivity.this).load(channel.image.url).into((ImageView) findViewById(R.id.backdrop));
         });
 
-        viewModel.getArticles().observe(this, articles -> {
-            prepareAlbums(articles);
-        });
+        // load articles
+        viewModel.getArticles().observe(this, articles -> prepareArticles(articles));
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -80,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    FilterType filter = FilterType.ALL;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -88,16 +92,19 @@ public class MainActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.spinner);
         Spinner spinner = (Spinner) item.getActionView();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
+                R.array.article_filter_text, R.layout.spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter = valueOf(filterValues[position]);
+                viewModel.updateFilter(filter);
+
                 Toast.makeText(MainActivity.this,
-                        "you selected: " + "aa",
+                        "you selected: " + filterValues[position],
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -118,10 +125,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch(id)
-        {
+        switch (id) {
             case R.id.action_refresh:
-                viewModel.checkArticles();
+                viewModel.downloadArticles();
                 return true;
 
         }
@@ -167,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Adding few albums for testing
      */
-    private void prepareAlbums(List<Article> articles) {
+    private void prepareArticles(List<Article> articles) {
         albumList.clear();
         albumList.addAll(articles);
 
