@@ -16,13 +16,13 @@
 
 package com.abubusoft.kripton.persistencecontentprovidersample.data;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 
 /**
  * Represents one record of the Cheese table.
  */
-@BindTable(name = "cheeses")
+@BindSqlType(name = "cheeses")
 public class Cheese {
 
     /** The unique ID of the cheese. */

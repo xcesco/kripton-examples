@@ -5,9 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
-/**
- * Created by xcesco on 28/02/2018.
- */
 public class SamplePopulator implements SQLitePopulator {
 
     /** Dummy data. */
@@ -146,7 +143,7 @@ public class SamplePopulator implements SQLitePopulator {
 
     @Override
     public void execute(SQLiteDatabase database) {
-        BindSampleDataSource dataSource = BindSampleDataSource.instance();
+        BindSampleDataSource dataSource = BindSampleDataSource.getInstance();
 
         dataSource.execute((BindSampleDaoFactory daoFactory) -> {
             CheeseDaoImpl dao = daoFactory.getCheeseDao();

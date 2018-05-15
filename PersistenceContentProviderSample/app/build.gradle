@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    annotationProcessor 'com.abubusoft:kripton-processor:4.0.0-rc.12'
-    implementation 'com.abubusoft:kripton-android-library:4.0.0-rc.12'
+    annotationProcessor 'com.abubusoft:kripton-processor:4.0.0-rc.14'
+    implementation 'com.abubusoft:kripton-android-library:4.0.0-rc.14'
     // Support Libraries
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
