@@ -22,18 +22,15 @@ This simple app was built as showroom for some features of Kripton:
 - How to write queries in compact mode
 - How to use dynamic where conditions in SQL queries
 
-### Get the database ###
-To copy database from emulator to workstation just use:
-
 ## How to copy locally the database ##
 To copy database from emulator to workstation just use:
 
-### Anything before API 24
+### Anything before API 24 ###
 ```
 adb pull /data/data/com.abubusoft.kripton.examples.rssreader/databases/rss.db
 ```
 
-### API 24 and later
+### API 24 and later ###
 ```
 adb exec-out run-as com.abubusoft.kripton.examples.rssreader cat ./databases/rss.db > rss.db
 ```
