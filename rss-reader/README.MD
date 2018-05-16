@@ -25,6 +25,12 @@ This simple app was built as showroom for some features of Kripton:
 ### Get the database ###
 To copy database from emulator to workstation just use:
 
+### Anything before API 24 ###
 ```
 adb shell "run-as com.abubusoft.kripton.examples.rssreader cat /data/user/0/com.abubusoft.kripton.examples.rssreader/databases/rss.db" > data.db
+```
+
+### API 24 and later ###
+```
+adb exec-out run-as com.abubusoft.kripton.examples.rssreader cat ./databases/rss.db > rss.db
 ```
