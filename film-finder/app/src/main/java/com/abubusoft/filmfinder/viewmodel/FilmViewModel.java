@@ -3,6 +3,7 @@ package com.abubusoft.filmfinder.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
+import android.arch.lifecycle.ViewModel;
 
 import com.abubusoft.filmfinder.FilmFinderApplication;
 import com.abubusoft.filmfinder.service.model.Search;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 // https://github.com/santhoshvai/omdb-android-client/blob/master/app/src/main/res/layout/list_item_movie.xml
-public class FilmViewModel {
+public class FilmViewModel extends ViewModel {
     private final FilmRepository repository;
     private final ExecutorService executionService;
     private final LiveData<Search> films;

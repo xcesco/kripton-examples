@@ -19,6 +19,7 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.abubusoft.filmfinder.AppCompatPreferenceActivity;
 import com.abubusoft.filmfinder.R;
 
 import java.util.List;
