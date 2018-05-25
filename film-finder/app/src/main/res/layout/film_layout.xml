@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/card_margin"
+    android:layout_marginRight="@dimen/card_margin"
+    android:layout_marginTop="@dimen/card_margin"
+    app:elevation="2dp"
+    app:cardPreventCornerOverlap="false"
+    android:layout_marginBottom="@dimen/card_margin"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--suppress AndroidLintContentDescription -->
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:transitionName="poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/movie_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_padding_large"
+            android:paddingTop="@dimen/card_padding_large"
+            android:paddingRight="@dimen/card_padding_large"
+            android:paddingBottom="@dimen/card_padding_medium"
+            tools:text="Batman: The Dark Knight Returns, Part 2"
+            android:ellipsize="end"
+            android:maxLines="4" />
+
+        <TextView
+            android:id="@+id/movie_director"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_padding_large"
+            android:paddingRight="@dimen/card_padding_large"
+            android:paddingBottom="4dp"
+            tools:text="santhosh"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/movie_year"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_padding_large"
+            android:paddingRight="@dimen/card_padding_large"
+            android:paddingBottom="@dimen/card_padding_large"
+            tools:text="2013"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
