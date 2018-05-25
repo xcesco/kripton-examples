@@ -25,9 +25,6 @@ public class RssRepository {
 
     private RssService rssService = new RssService();
 
-    /**
-     * retrieves articles from rest services
-     */
     public void downloadArticles() {
         rssService.execute().enqueue(new Callback<RssFeed>() {
 

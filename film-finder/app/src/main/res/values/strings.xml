@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">Film Finder</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="omdb_api_key">d497e644</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- -->
+    <string name="search_button">Search</string>
+    <string name="search_hint">Search by movie title</string>
+    <string name="search_type">movie</string>
+    <string name="default_poster">http://www.imdb.com/images/nopicture/medium/film.png</string>
+    <string name="snackbar_title_not_found">The movie title you entered was not found</string>
+    <string name="snackbar_title_empty">Please enter a movie title</string>
+    <string name="network_not_available">Network not available! Please connect to the Internet.</string>
+    <string name="title">Title</string>
+    <string name="example_title">Wreck-It Ralph</string>
+    <string name="released">Released</string>
+    <string name="example_release">02 Nov 2012</string>
+    <string name="runtime">Runtime</string>
+    <string name="example_runtime">101 min</string>
+    <string name="director">Director</string>
+    <string name="example_director">Rich Moore</string>
+    <string name="Genre">Genre</string>
+    <string name="example_genre">Animation, Adventure, Comedy</string>
+    <string name="Writer">Writer(s)</string>
+    <string name="example_writer">Rich Moore (story), Phil Johnston (story), Jim Reardon (story), Phil Johnston (screenplay), Jennifer Lee (screenplay), John C. Reilly (additional story material)</string>
+    <string name="actors">Actors</string>
+    <string name="example_actors">John C. Reilly, Sarah Silverman, Jack McBrayer, Jane Lynch</string>
+    <string name="plot">Plot</string>
+    <string name="example_full_plot">"Wreck-It Ralph longs to be as beloved as his game's perfect Good Guy, Fix-It Felix. Problem is, nobody loves a Bad Guy. But they do love heroes... so when a modern, first-person shooter game arrives featuring tough-as-nails Sergeant Calhoun, Ralph sees it as his ticket to heroism and happiness. He sneaks into the game with a simple plan -- win a medal -- but soon wrecks everything, and accidentally unleashes a deadly enemy that threatens every game in the arcade. Ralph's only hope? Vanellope von Schweetz, a young troublemaking \"glitch\" from a candy-coated cart racing game who might just be the one to teach Ralph what it means to be a Good Guy. But will he realize he is good enough to become a hero before it's \"Game Over\" for the entire arcade?"</string>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+</resources>
