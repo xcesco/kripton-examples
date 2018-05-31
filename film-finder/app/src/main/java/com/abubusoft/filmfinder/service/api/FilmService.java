@@ -39,20 +39,6 @@ public class FilmService {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
-                /*.addInterceptor(new Interceptor() {
-
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        RequestBody original=chain.request().body();
-                        Buffer buffer = new Buffer();
-                        original.writeTo(buffer);
-                        ByteString bytes = buffer.snapshot();
-                        RequestBody fixedLength = RequestBody.create(original.contentType(), bytes);
-                        Request.Builder requestBuilder = chain.request().newBuilder();
-                        requestBuilder.method(chain.request().method(), fixedLength);
-                        return chain.proceed(requestBuilder.build());
-                    }
-                })*/
                 .addInterceptor(logging);  // <-- this is the important line!
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -70,10 +56,11 @@ public class FilmService {
         Call<Search> call = api.search(search, this.apiKey);
 
         try {
-            call.execute().body();
+            return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 

@@ -12,7 +12,7 @@ import java.util.Date;
 public class Entity {
     public long id;
 
-    @BindAdapter(adapter=DateAdapter.class, dataType = Long.class)
+    @BindAdapter(adapter=DateAdapter.class)
     public Date creationTime;
 
 }

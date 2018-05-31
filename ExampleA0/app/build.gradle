@@ -28,14 +28,16 @@ android {
     }
 }
 
-dependencies {
-    annotationProcessor 'com.abubusoft:kripton-processor:2.0.1'
-    compile 'com.abubusoft:kripton-android-library:2.0.1'
+def kriptonVersion='3.0.0-SNAPSHOT'
 
-    compile 'com.abubusoft:kripton-dataformat-yaml:2.0.1'
-    compile 'com.abubusoft:kripton-dataformat-cbor:2.0.1'
-    compile 'com.abubusoft:kripton-dataformat-smile:2.0.1'
-   compile 'com.abubusoft:kripton-dataformat-properties:2.0.1'
+dependencies {
+    annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
+    compile "com.abubusoft:kripton-android-library:${kriptonVersion}"
+
+    compile "com.abubusoft:kripton-dataformat-yaml:${kriptonVersion}"
+    compile "com.abubusoft:kripton-dataformat-cbor:${kriptonVersion}"
+    compile "com.abubusoft:kripton-dataformat-smile:${kriptonVersion}"
+   compile "com.abubusoft:kripton-dataformat-properties:${kriptonVersion}"
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
