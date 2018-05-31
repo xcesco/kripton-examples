@@ -1,6 +1,6 @@
 <resources>
 
- <!-- Base application theme. -->
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -21,6 +21,7 @@
         <!--<item name="layout_gravity">right</item>-->
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="right_column_normal" parent="TextAppearance.AppCompat.Subhead">
         <!--<item name="layout_gravity">fill_horizontal</item>-->
         <item name="android:layout_width">0dp</item>

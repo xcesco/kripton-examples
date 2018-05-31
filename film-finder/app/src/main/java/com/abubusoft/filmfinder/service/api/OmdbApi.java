@@ -15,13 +15,14 @@ public interface OmdbApi {
 
     // http://www.omdbapi.com/?s=star&apikey=d497e644
 
-    @Streaming
+    @ChunkingConverter.ChunkedResponse
     @GET("./")
     @Headers({"Cache-control: no-cache"})
-    Call<Search> search(@Query("s") String search, @Query("apikey") String apiKey);
+    Call<ResponseBody> search(@Query("s") String search, @Query("apikey") String apiKey);
 
-    @Streaming
+
+    @ChunkingConverter.ChunkedResponse
     @GET("./")
     @Headers({"Cache-control: no-cache"})
-    Call<FilmDetail> getFilm(@Query("i") String uid, @Query("apikey") String apiKey);
+    Call<ResponseBody> getFilm(@Query("i") String uid, @Query("apikey") String apiKey);
 }
