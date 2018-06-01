@@ -11,13 +11,13 @@ import java.util.Date;
 public class DateAdapter implements BindTypeAdapter<Date, Long> {
 
     @Override
-    public Date toJava(Long dataValue) throws Exception {
+    public Date toJava(Long dataValue)  {
         if (dataValue==null) return null;
         return new Date(dataValue);
     }
 
     @Override
-    public Long toData(Date javaValue) throws Exception {
+    public Long toData(Date javaValue)  {
         if (javaValue==null) return null;
         return javaValue.getTime();
     }
