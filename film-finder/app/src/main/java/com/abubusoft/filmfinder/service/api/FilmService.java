@@ -27,6 +27,7 @@ import retrofit2.Retrofit;
 public class FilmService {
 
     private final String apiKey;
+
     OmdbApi api;
 
     static final String BASE_URL = "http://www.omdbapi.com/";
@@ -39,7 +40,7 @@ public class FilmService {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(logging);  // <-- this is the important line!
+                .addInterceptor(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

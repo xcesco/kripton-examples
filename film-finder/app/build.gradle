@@ -35,7 +35,6 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
-
     implementation "android.arch.lifecycle:runtime:${archVersion}"
     implementation "android.arch.lifecycle:extensions:${archVersion}"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
