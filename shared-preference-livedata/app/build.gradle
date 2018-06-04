@@ -24,7 +24,7 @@ android {
 }
 
 ext {
-    kriptonVersion = "4.0.0-rc.21"
+    kriptonVersion = "4.0.0-rc.22"
     archVersion = "1.1.1"
 }
 

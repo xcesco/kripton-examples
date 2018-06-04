@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
+import com.abubusoft.sharedpreferencewatcher.model.BindAppPreferences;
 import com.abubusoft.sharedpreferencewatcher.view.adapters.RecyclerViewAdapter;
 
 import com.abubusoft.sharedpreferencewatcher.AbstractModel;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         findViews();
         initToolbar("Kripton and Shared Prefs Live Data!");
         setAdapter();
-
 
         // view model management
         // 1- create view model
