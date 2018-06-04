@@ -1,4 +1,4 @@
-package com.abubusoft.sharedpreferencewatcher;
+package com.abubusoft.sharedpreferencewatcher.view.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import android.support.v7.widget.LinearLayoutManager;
+import com.abubusoft.sharedpreferencewatcher.view.AbstractModel;
+import com.abubusoft.sharedpreferencewatcher.R;
 
 
 /**

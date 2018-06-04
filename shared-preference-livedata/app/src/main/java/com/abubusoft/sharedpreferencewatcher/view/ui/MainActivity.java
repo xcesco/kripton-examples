@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.abubusoft.sharedpreferencewatcher.AbstractModel;
+import com.abubusoft.sharedpreferencewatcher.view.AbstractModel;
 import com.abubusoft.sharedpreferencewatcher.R;
 import com.abubusoft.sharedpreferencewatcher.RecyclerViewAdapter;
 import com.abubusoft.sharedpreferencewatcher.viewmodel.SharedPrefsViewModel;
