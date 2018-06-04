@@ -10,7 +10,7 @@ public class AppPreferences {
 
     public String exampleText="Tonj Manero";
 
-    public String exampleList;
+    public ListType exampleList=ListType.ALWAYS;
 
     @BindPreference(liveData = false)
     public String syncFrequency="15";

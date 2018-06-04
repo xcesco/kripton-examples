@@ -25,10 +25,11 @@ android {
 
 ext {
     kriptonVersion = "4.0.0-rc.21"
-    archVersion="1.1.1"
+    archVersion = "1.1.1"
 }
 
 dependencies {
+    implementation 'com.android.support:cardview-v7:27.1.1'
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
 

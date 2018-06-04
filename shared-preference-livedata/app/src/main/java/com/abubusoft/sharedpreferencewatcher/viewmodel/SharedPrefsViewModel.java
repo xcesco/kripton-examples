@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.sharedpreferencewatcher.model.BindAppPreferences;
+import com.abubusoft.sharedpreferencewatcher.model.ListType;
 
 public class SharedPrefsViewModel extends android.arch.lifecycle.ViewModel {
 
@@ -21,8 +22,7 @@ public class SharedPrefsViewModel extends android.arch.lifecycle.ViewModel {
         return prefs.getExampleTextAsLiveData();
     }
 
-
-    public LiveData<String> getExampleList() {
+    public LiveData<ListType> getExampleList() {
         return prefs.getExampleListAsLiveData();
     }
 
