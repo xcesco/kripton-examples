@@ -23,7 +23,7 @@ public class Contact {
     protected String surname;
 
     @Bind(order = 1)
-    @BindAdapter(adapter=DateAdapter.class, dataType = Long.class)
+    @BindAdapter(adapter=DateAdapter.class)
     protected Date birthDay;
 
     protected byte[] image;

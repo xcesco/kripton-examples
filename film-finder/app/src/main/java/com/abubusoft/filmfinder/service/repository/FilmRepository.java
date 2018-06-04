@@ -15,10 +15,11 @@ public class FilmRepository {
 
         KriptonLibrary.getExecutorService().execute(() -> {
             Logger.info("aaaa ");
-            result.postValue(FilmFinderApplication.filmService.executeSearch(search));
+             result.postValue(FilmFinderApplication.filmService.executeSearch(search));
         });
 
 
         return result;
     }
+
 }

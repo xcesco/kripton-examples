@@ -27,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
         // 1- create view model
         viewModel = ViewModelProviders.of(this).get(FilmViewModel.class);
 
+        viewModel.setSearchFilter("star");
         viewModel.getFilms().observe(this, result -> {
             result.getSearch();
             Logger.info("Finito!!! "+result.getTotalResults());
         });
 
-        viewModel.setSearchFilter("star");
+
 
     }
 }
