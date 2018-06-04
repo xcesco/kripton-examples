@@ -10,9 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.abubusoft.sharedpreferencewatcher.view.AbstractModel;
+import com.abubusoft.sharedpreferencewatcher.view.adapters.RecyclerViewAdapter;
+
+import com.abubusoft.sharedpreferencewatcher.AbstractModel;
 import com.abubusoft.sharedpreferencewatcher.R;
-import com.abubusoft.sharedpreferencewatcher.RecyclerViewAdapter;
 import com.abubusoft.sharedpreferencewatcher.viewmodel.SharedPrefsViewModel;
 
 import java.util.ArrayList;
@@ -42,9 +43,18 @@ public class MainActivity extends AppCompatActivity {
         // 1- create view model
         viewModel = ViewModelProviders.of(this).get(SharedPrefsViewModel.class);
         // 2- observe channel header
-        viewModel.getExampleList().observe(this, value -> modelList.add(new AbstractModel("Key = ExampleList", "Value = "+value)));
-        viewModel.getExampleSwitch().observe(this, value -> modelList.add(new AbstractModel("Key = ExampleSwitch", "Value = "+value)));
-        viewModel.getExampleText().observe(this, value -> modelList.add(new AbstractModel("Key = ExampleText", "Value = "+value)));
+        viewModel.getExampleList().observe(this, value -> {
+            modelList.add(new AbstractModel("Key = ExampleList", "Value = " + value));
+            this.mAdapter.updateList(modelList);
+        });
+        viewModel.getExampleSwitch().observe(this, value -> {
+            modelList.add(new AbstractModel("Key = ExampleSwitch", "Value = " + value));
+            this.mAdapter.updateList(modelList);
+        });
+        viewModel.getExampleText().observe(this, value -> {
+            modelList.add(new AbstractModel("Key = ExampleText", "Value = " + value));
+            this.mAdapter.updateList(modelList);
+        });
     }
 
     private void setAdapter() {

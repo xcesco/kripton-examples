@@ -1,4 +1,4 @@
-package com.abubusoft.sharedpreferencewatcher.view;
+package com.abubusoft.sharedpreferencewatcher;
 
 import java.util.ArrayList;
 
