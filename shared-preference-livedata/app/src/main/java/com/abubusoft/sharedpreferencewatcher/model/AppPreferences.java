@@ -1,6 +1,7 @@
 package com.abubusoft.sharedpreferencewatcher.model;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
+import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
 @BindSharedPreferences(liveData = true )
@@ -8,7 +9,8 @@ public class AppPreferences {
 
     public boolean exampleSwitch=false;
 
-    public String exampleText="Tonj Manero";
+    @BindPreferenceAdapter(adapter = UpperAdapter.class)
+    public String exampleText="TONJ MANERO";
 
     public ListType exampleList=ListType.ALWAYS;
 

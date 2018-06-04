@@ -30,6 +30,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.modelList = modelList;
     }
 
+    public void update(AbstractModel model) {
+        this.modelList.add(model);
+        notifyDataSetChanged();
+    }
+
     public void updateList(ArrayList<AbstractModel> modelList) {
         this.modelList = modelList;
         notifyDataSetChanged();

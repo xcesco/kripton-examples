@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViews();
-        initToolbar("Shared Preference Live Data with Kripton!");
+        initToolbar("Kripton and Shared Prefs Live Data!");
         setAdapter();
 
 
@@ -43,18 +43,15 @@ public class MainActivity extends AppCompatActivity {
         // 1- create view model
         viewModel = ViewModelProviders.of(this).get(SharedPrefsViewModel.class);
         // 2- observe channel header
-        viewModel.getExampleList().observe(this, value -> {
-            modelList.add(new AbstractModel("Key = ExampleList", "Value = " + value));
-            this.mAdapter.updateList(modelList);
-        });
-        viewModel.getExampleSwitch().observe(this, value -> {
-            modelList.add(new AbstractModel("Key = ExampleSwitch", "Value = " + value));
-            this.mAdapter.updateList(modelList);
-        });
-        viewModel.getExampleText().observe(this, value -> {
-            modelList.add(new AbstractModel("Key = ExampleText", "Value = " + value));
-            this.mAdapter.updateList(modelList);
-        });
+        viewModel.getExampleList().observe(this, value ->
+                this.mAdapter.update(new AbstractModel("Key = ExampleList", "Value = " + value))
+        );
+        viewModel.getExampleSwitch().observe(this, value ->
+                this.mAdapter.update(new AbstractModel("Key = ExampleSwitch", "Value = " + value))
+        );
+        viewModel.getExampleText().observe(this, value ->
+                this.mAdapter.update(new AbstractModel("Key = ExampleText", "Value = " + value))
+        );
     }
 
     private void setAdapter() {
