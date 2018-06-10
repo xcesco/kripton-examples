@@ -46,6 +46,6 @@ This simple app was built as showroom for some features of Kripton:
 ## Shared Preferences with Live Data
 This example show how Kripton allows managing Shared Preferences with Live Data.
 
-<img src="https://cdn-images-1.medium.com/max/800/1*ZPZzhm7K4dnmpatsK_fSyg.gif">
+[shared-preference-livedata](https://github.com/xcesco/kripton-examples/tree/master/shared-preference-livedata)
 
 For more information read my article on medium [Kripton Library vs. Shared Preferences](https://medium.com/@xcesco/kripton-library-vs-shared-preferences-4365ffbf005a)
