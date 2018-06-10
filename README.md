@@ -1,4 +1,4 @@
-# kripton-examples
+# Kripton-examples
 Some examples showing how to use kripton persistence library.
 
 ## Kripton with Content Providers Sample
@@ -8,10 +8,14 @@ This is a porting of the Room Persistence Content Provider Sample.
 
 [https://github.com/xcesco/kripton-examples/tree/master/PersistenceContentProviderSample](https://github.com/xcesco/kripton-examples/tree/master/PersistenceContentProviderSample)
 
-## Kripton Migration Sample
+This sample is associated to [my post](https://medium.com/@xcesco/kripton-meets-room-a-persistence-content-provider-comparison-3fbc246e144c).
+
+## Kripton SQLite Migration Sample
 This is a Kripton version of [PersistenceMigrationsSample](https://raw.githubusercontent.com/googlesamples/android-architecture-components/master/PersistenceMigrationsSample/) by Google.
 
 [https://github.com/xcesco/kripton-examples/tree/master/PersistenceMigrationsSample](https://github.com/xcesco/kripton-examples/tree/master/PersistenceMigrationsSample)
+
+This sample was originally written for this [article](https://medium.com/@xcesco/how-to-upgrade-sqlite-database-with-kripton-persistence-library-293098a29d92).
 
 ## Kripton Benchmarks
 How Kripton is fast to parse and convert JSON data format? 
@@ -42,6 +46,8 @@ This simple app was built as showroom for some features of Kripton:
 - How generate Live Data from DAO queries
 - How to write queries in compact mode
 - How to use dynamic where conditions in SQL queries
+
+You can also read [Kripton Live Data — First contact](https://medium.com/@xcesco/kripton-live-data-first-contact-579db390cc7d).
 
 ## Shared Preferences with Live Data
 This example show how Kripton allows managing Shared Preferences with Live Data.
