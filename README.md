@@ -1,5 +1,5 @@
 # Kripton-examples
-Some examples showing how to use kripton persistence library.
+Some examples showing how to use [Kripton Persistence Library](https://github.com/xcesco/kripton).
 
 ## Kripton with Content Providers Sample
 This sample demonstrates how to expose data stored in the Kripton persistence library with Android's Content Provider framework.
