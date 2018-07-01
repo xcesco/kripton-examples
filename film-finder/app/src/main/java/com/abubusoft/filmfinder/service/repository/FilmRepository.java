@@ -14,8 +14,7 @@ public class FilmRepository {
         MutableLiveData<Search> result = new MutableLiveData<>();
 
         KriptonLibrary.getExecutorService().execute(() -> {
-            Logger.info("aaaa ");
-             result.postValue(FilmFinderApplication.filmService.executeSearch(search));
+            result.postValue(FilmFinderApplication.filmService.executeSearch(search));
         });
 
 
