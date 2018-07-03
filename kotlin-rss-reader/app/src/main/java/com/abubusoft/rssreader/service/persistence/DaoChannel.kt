@@ -9,10 +9,10 @@ import com.abubusoft.rssreader.service.model.Channel
 @BindDao(Channel::class)
 interface DaoChannel : DaoBase<Channel> {
 
-    @BindSqlSelect(where = "rssFeedId=\${rssFeedId}", childrenSelects = arrayOf(BindSqlChildSelect(field = "articles", method = "selectByChannelUd")))
+    @BindSqlSelect(where = "rssFeedId=:rssFeedId", childrenSelects = [BindSqlChildSelect(field = "articles", method = "selectByChannelUd")])
     fun selectByRssFeedId(rssFeedId: Long): List<Channel>
 
-    @BindSqlSelect(where = "rssFeedId=\${rssFeedId}")
+    @BindSqlSelect(where = "rssFeedId=:rssFeedId")
     fun selectOneByRssFeedId(rssFeedId: Long): Channel
 
     @BindSqlSelect

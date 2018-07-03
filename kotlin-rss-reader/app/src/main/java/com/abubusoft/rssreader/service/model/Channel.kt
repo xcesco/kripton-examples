@@ -11,29 +11,29 @@ import java.util.*
 
 @BindType
 @BindSqlType(name = "channels")
-class Channel : Entity() {
+class Channel(
 
-    var title: String? = null
+        var title: String? = null,
 
-    @BindSqlColumn(columnType = ColumnType.UNIQUE)
-    var link: String? = null
+        @BindSqlColumn(columnType = ColumnType.UNIQUE)
+        var link: String? = null,
 
-    var description: String? = null
-    var language: String? = null
-    var copyright: String? = null
+        var description: String? = null,
+        var language: String? = null,
+        var copyright: String? = null,
 
-    @BindAdapter(adapter = DateAdapter::class)
-    var pubDate: Date? = null
+        @BindAdapter(adapter = DateAdapter::class)
+        var pubDate: Date? = null,
+        @BindAdapter(adapter = DateAdapter::class)
+        var lastBuildDate: Date? = null,
 
-    @BindAdapter(adapter = DateAdapter::class)
-    var lastBuildDate: Date? = null
+        var image: Image? = null,
 
-    var image: Image? = null
+        @BindSqlColumn(parentEntity = RssFeed::class)
+        var rssFeedId: Long = 0,
 
-    @BindSqlColumn(parentEntity = RssFeed::class)
-    var rssFeedId: Long = 0
-
-    @Bind("item")
-    @BindSqlRelation(foreignKey = "channelId")
-    var articles: List<Article>? = null
+        @Bind("item")
+        @BindSqlRelation(foreignKey = "channelId")
+        var articles: List<Article>? = null
+) : Entity() {
 }

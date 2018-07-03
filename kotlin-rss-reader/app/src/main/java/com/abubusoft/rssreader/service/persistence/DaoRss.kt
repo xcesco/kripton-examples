@@ -7,7 +7,7 @@ import com.abubusoft.rssreader.service.model.RssFeed
 @BindDao(RssFeed::class)
 interface DaoRss : DaoBase<RssFeed> {
 
-    @BindSqlSelect(where = "uid=\${uid}")
+    @BindSqlSelect(where = "uid=:uid")
     fun selectOne(uid: String): RssFeed
 
 }

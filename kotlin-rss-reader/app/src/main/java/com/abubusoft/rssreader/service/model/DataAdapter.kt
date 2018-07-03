@@ -8,7 +8,7 @@ import java.util.*
 
 class DateAdapter : TypeAdapter<Date, String> {
 
-    private var formatter: DateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+    private var formatter: SimpleDateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
 
     override fun toJava(dataValue: String?): Date? {
         if (dataValue == null) return null
