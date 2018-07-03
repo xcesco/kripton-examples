@@ -39,25 +39,25 @@ class RssRepository {
                     currentRss = daoRss.selectOne(RssService.RSS_NAME)
                     if (currentRss == null) {
                         currentRss = RssFeed()
-                        currentRss!!.version = rssFeed!!.version
-                        currentRss!!.uid = RssService.RSS_NAME
+                        currentRss.version = rssFeed!!.version
+                        currentRss.uid = RssService.RSS_NAME
                         daoRss.insert(currentRss)
                     }
                     for (channelItem in rssFeed?.channels!!) {
                         // select or add channel
                         var currentChannel = daoChannels.selectOneByRssFeedId(currentRss!!.id)
                         if (currentChannel == null) {
-                            channelItem.rssFeedId = currentRss!!.id
+                            channelItem.rssFeedId = currentRss.id
                             daoChannels.insert(channelItem)
                             currentChannel = channelItem
                         }
 
                         for (article in channelItem?.articles!!) {
                             // select or add article
-                            val currentArticle = daoArticles.selectByGuid(currentChannel!!.id, article.guid
+                            val currentArticle = daoArticles.selectByGuid(currentChannel.id, article.guid
                                     ?: "")
                             if (currentArticle == null) {
-                                article.channelId = currentChannel!!.id
+                                article.channelId = currentChannel.id
                                 daoArticles.insert(article)
                             }
 
