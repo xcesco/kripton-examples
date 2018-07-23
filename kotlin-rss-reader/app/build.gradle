@@ -20,10 +20,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
+kapt {
+    arguments {
+        arg("kripton.debug", "true")
+    }
+}
+
+
 ext {
-    kriptonVersion = "4.1.0-rc.1"
+    kriptonVersion = "4.1.0-rc.4"
     archVersion="1.1.1"
 }
 

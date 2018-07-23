@@ -9,23 +9,24 @@ import java.net.URL
 @BindType("item")
 @BindXmlType(namespaces = arrayOf(BindXmlNamespace(prefix = "dc", uri = "http://purl.org/dc/elements/1.1/"), BindXmlNamespace(prefix = "content", uri = "http://purl.org/dc/elements/1.1/")))
 @BindSqlType(name = "articles")
-class Article(
-        var title: String? = null,
-        var description: String? = null,
-        var link: URL? = null,
-        var author: String? = null,
+data class Article(
+        val title: String?,
+        val description: String?,
+        val link: URL?,
+        val author: String?,
 
-        @BindSqlColumn(nullable = false, columnType = ColumnType.UNIQUE)
-        var guid: String? = null,
+        @BindSqlColumn(nullable = false, columnType = ColumnType.PRIMARY_KEY)
+        val guid: String?,
 
-        var comments: URL? = null,
+        val comments: URL?,
 
         @BindSqlColumn(parentEntity = Channel::class)
-        var channelId: Long = 0,
+        val channelId: Long,
 
         @Bind("thumbnail")
         @BindXml(namespace = "media")
-        var thumbnail: Thumbnail? = null,
+        val thumbnail: Thumbnail?,
 
-        var read: Boolean = false) : Entity() {
-}
+        val read: Boolean,
+
+        val id: Long)

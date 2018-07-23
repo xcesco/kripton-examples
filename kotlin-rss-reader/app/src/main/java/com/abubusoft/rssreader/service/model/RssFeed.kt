@@ -9,16 +9,16 @@ import com.abubusoft.kripton.annotation.BindXml
 import com.abubusoft.kripton.xml.XmlType
 
 @BindType(value = "rss")
-class RssFeed : Entity() {
+class RssFeed(
+        @BindSqlColumn(columnType = ColumnType.UNIQUE)
+        val uid: String,
 
-    @BindSqlColumn(columnType = ColumnType.UNIQUE)
-    var uid: String? = null
+        @BindXml(xmlType = XmlType.ATTRIBUTE)
+        val version: String,
 
-    @BindXml(xmlType = XmlType.ATTRIBUTE)
-    var version: String? = null
+        @Bind("channel")
+        @BindSqlRelation(foreignKey = "rssFeedId")
+        val channels: List<Channel>,
 
-    @Bind("channel")
-    @BindSqlRelation(foreignKey = "rssFeedId")
-    var channels: List<Channel>? = null
-
-}
+        val id: Long
+)
