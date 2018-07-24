@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">Kotlin Rss Reader</string>
+    <string name="app_name">Kotlin RSS Reader</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add_favourite">Favourite</string>
+    <string name="action_play_next">Next</string>
+    <string name="backdrop_title">RSS</string>
+    <string name="backdrop_subtitle">Subtitle</string>
+    <string name="action_refresh">Refresh</string>
+
+    <array name="article_filter_text">
+        <item>All</item>
+        <item>Read</item>
+        <item>Unread</item>
+    </array>
+
+    <array name="article_filter_value">
+        <item>ALL</item>
+        <item>READ</item>
+        <item>UNREAD</item>
+    </array>
 </resources>
