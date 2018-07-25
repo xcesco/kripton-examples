@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.abubusoft.kripton.kotlin.sample01"
+        applicationId "com.abubusoft.kripton.kotlinsample02"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
@@ -20,16 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
-
 
 ext {
     kriptonVersion = "4.1.0-rc.4"
-    archVersion="1.1.1"
+    archVersion = "1.1.1"
 }
 
 dependencies {
