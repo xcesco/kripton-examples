@@ -1,6 +1,7 @@
 package com.abubusoft.kripton.kotlin.sample01.model
 
 import com.abubusoft.kripton.android.ColumnType
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry
 import com.abubusoft.kripton.android.annotation.BindSqlColumn
 import com.abubusoft.kripton.android.annotation.BindSqlType
 import com.abubusoft.kripton.annotation.*
@@ -13,7 +14,7 @@ data class Article(
         @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
         val id: Long,
 
-        val title: String?,
+        val title: String? = "test",
         val description: String?,
         val link: URL?,
         val author: String?,
@@ -21,6 +22,7 @@ data class Article(
         @BindSqlColumn(nullable = false, columnType = ColumnType.UNIQUE)
         val guid: String?,
 
+        @Bind(enabled = false)
         val comments: URL?,
 
         @BindSqlColumn(parentEntity = Channel::class)

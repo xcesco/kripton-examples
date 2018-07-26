@@ -22,6 +22,6 @@ data class RssFeed(
         var version: String? = null,
 
         @Bind("channel")
-        @BindSqlRelation(foreignKey = "rssFeedId")
+        @BindSqlRelation/*(foreignKey = "rssFeedId")*/
         var channels: List<Channel>? = null
 )
