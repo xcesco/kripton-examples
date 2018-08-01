@@ -6,13 +6,13 @@ import com.abubusoft.kripton.xml.XmlType
 import java.net.URL
 
 @BindType
-class Thumbnail {
-    @BindXml(xmlType = XmlType.ATTRIBUTE)
-    var width: Long = 0
+class Thumbnail(
+        @BindXml(xmlType = XmlType.ATTRIBUTE)
+        val width: Long = 0,
 
-    @BindXml(xmlType = XmlType.ATTRIBUTE)
-    var height: Long = 0
+        @BindXml(xmlType = XmlType.ATTRIBUTE)
+        val height: Long = 0,
 
-    @BindXml(xmlType = XmlType.ATTRIBUTE)
-    var url: URL? = null
-}
+        @BindXml(xmlType = XmlType.ATTRIBUTE)
+        val url: URL? = null
+)

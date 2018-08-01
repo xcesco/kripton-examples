@@ -14,7 +14,7 @@ interface DaoChannel : DaoBase<Channel> {
     fun selectByRssFeedId(rssFeedId: Long): List<Channel>
 
     @BindSqlSelect(where = "rssFeedId=:rssFeedId")
-    fun selectOneByRssFeedId(rssFeedId: Long): Channel
+    fun selectOneByRssFeedId(rssFeedId: Long): Channel?
 
     @BindSqlSelect
     fun selectOne(): LiveData<Channel>

@@ -21,5 +21,5 @@ interface DaoArticle : DaoBase<Article> {
     fun selectByChannelUd(channelId: Long): List<Article>
 
     @BindSqlSelect(where = "channelId=:channelId AND guid=:guid")
-    fun selectByGuid(channelId: Long, guid: String): Article
+    fun selectByGuid(channelId: Long, guid: String): Article?
 }

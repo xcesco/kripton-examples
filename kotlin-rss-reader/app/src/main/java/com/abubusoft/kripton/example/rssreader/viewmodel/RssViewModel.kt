@@ -26,7 +26,7 @@ class RssViewModel : ViewModel() {
     }
 
     fun markArticleAsRead(article: Article) {
-        if (article.read === false) {
+        if (!article.read) {
             repository.markArticleAsRead(article)
         } else {
             Logger.info("Article already read")
