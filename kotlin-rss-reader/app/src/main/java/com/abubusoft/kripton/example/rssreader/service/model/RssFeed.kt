@@ -21,5 +21,5 @@ open class RssFeed(
 
         @Bind("channel")
         @BindSqlRelation(foreignKey = "rssFeedId")
-        val channels: List<Channel>? = null
+        var channels: List<Channel>? = null
 )
