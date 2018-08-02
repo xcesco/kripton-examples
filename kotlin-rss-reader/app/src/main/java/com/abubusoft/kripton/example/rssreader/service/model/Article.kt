@@ -23,7 +23,7 @@ data class Article(
         val comments: URL? = null,
 
         @BindSqlColumn(parentEntity = Channel::class)
-        val channelId: Long = 0,
+        var channelId: Long = 0,
 
         @Bind("thumbnail")
         @BindXml(namespace = "media")

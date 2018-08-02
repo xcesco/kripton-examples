@@ -9,8 +9,10 @@ import com.abubusoft.kripton.annotation.BindXml
 import com.abubusoft.kripton.xml.XmlType
 
 @BindType(value = "rss")
-class RssFeed(
-        @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY) var id: Long = 0,
+open class RssFeed(
+        @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
+        var id: Long = 0,
+
         @BindSqlColumn(columnType = ColumnType.UNIQUE)
         var uid: String? = null,
 

@@ -13,15 +13,15 @@ import com.abubusoft.kripton.xml.XmlType
 @BindSqlType(name = "rss")
 data class RssFeed(
         @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
-        val id: Long = 0,
+        var id: Long = 0,
 
         @BindSqlColumn(columnType = ColumnType.UNIQUE)
-        val uid: String? = null,
+        var uid: String? = null,
 
         @BindXml(xmlType = XmlType.ATTRIBUTE)
-        val version: String? = null,
+        var version: String? = null,
 
         @Bind("channel")
-        @BindSqlRelation(foreignKey = "rssFeedId")
-        val channels: List<Channel>? = null
+        @BindSqlRelation/*(foreignKey = "rssFeedId")*/
+        var channels: List<Channel>? = null
 )

@@ -8,6 +8,6 @@ import com.abubusoft.kripton.example.rssreader.service.model.RssFeed
 interface DaoRss : DaoBase<RssFeed> {
 
     @BindSqlSelect(where = "uid=:uid")
-    fun selectOne(uid: String): RssFeed
+    fun selectOne(uid: String): RssFeed?
 
 }

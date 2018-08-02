@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         // 2- observe channel header
         viewModel.channel.observe(this, Observer { channel ->
             if (channel != null) {
-                Glide.with(this@MainActivity).load(channel?.image?.url).into(findViewById(R.id.backdrop) as ImageView)
+                Glide.with(this@MainActivity).load(channel.image?.url).into(findViewById(R.id.backdrop) as ImageView)
             } else {
                 Logger.info("No data found, download articles")
                 viewModel.downloadArticles()
@@ -124,7 +124,6 @@ class MainActivity : AppCompatActivity() {
         when (id) {
             R.id.action_refresh -> {
                 viewModel.downloadArticles()
-                true
             }
         }
         /*    if (id == R.id.action_settings) {

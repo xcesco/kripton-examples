@@ -59,7 +59,7 @@ class ArticlesAdapter(private val mContext: Context, private val viewModel: RssV
         // loading album cover using Glide library
         Glide.with(mContext).load(article.thumbnail?.url).into(holder.thumbnail)
 
-        holder.thumbnail.setOnClickListener { view ->
+        holder.thumbnail.setOnClickListener { _ ->
             val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(article.link.toString()))
             KriptonLibrary.getContext().startActivity(intent)
 
