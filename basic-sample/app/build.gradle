@@ -13,9 +13,9 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                                "kripton.debug"         : "true",
-                                "kripton.schemaLocation": "${projectDir}/schemas".toString()
-                            ]
+                        "kripton.debug"         : "true",
+                        "kripton.schemaLocation": "${projectDir}/schemas".toString()
+                ]
             }
         }
     }
@@ -25,6 +25,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,11 +35,30 @@ android {
 }
 
 dependencies {
-    annotationProcessor "com.abubusoft:kripton-processor:4.1.0-rc.9"
-    implementation 'com.abubusoft:kripton-android-library:4.1.0-rc.9'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    def kriptonVersion = "4.1.0-rc.9"
+    def archVersion="1.1.1"
+    def appCompatVersion = "27.1.1"
+    def lifecycleVersion = "1.1.1"
+
+    // Support libraries
+    implementation "com.android.support:appcompat-v7:${appCompatVersion}"
+    implementation "com.android.support:design:${appCompatVersion}"
+    implementation "com.android.support:cardview-v7:${appCompatVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // Kripton
+    annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
+    implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
+
+    //
+    // ViewModel and LiveData
+    annotationProcessor "android.arch.lifecycle:compiler:${lifecycleVersion}"
+    implementation "android.arch.lifecycle:runtime:${lifecycleVersion}"
+    implementation "android.arch.lifecycle:extensions:${lifecycleVersion}"
+
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
