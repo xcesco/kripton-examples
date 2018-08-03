@@ -15,9 +15,6 @@ public interface ProductDao extends AbstractDao<ProductEntity> {
     @BindSqlSelect
     LiveData<List<ProductEntity>> loadAllProducts();
 
-    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
-    void insert(ProductEntity product);
-
     @BindSqlSelect(where="id = :productId")
     LiveData<ProductEntity> loadProduct(int productId);
 
