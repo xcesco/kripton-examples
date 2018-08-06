@@ -24,15 +24,18 @@ android {
 }
 
 ext {
-    kriptonVersion = "4.0.0-rc.21"
+    kriptonVersion = "4.1.0-rc.11"
     archVersion="1.1.1"
 }
 
 dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
+
+
     implementation "android.arch.lifecycle:runtime:${archVersion}"
     implementation "android.arch.lifecycle:extensions:${archVersion}"
+
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
