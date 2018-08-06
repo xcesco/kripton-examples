@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.abubusoft.kripton.basicsample.ui;
 
 import android.arch.lifecycle.Observer;
@@ -10,8 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abubusoft.kripton.basicsample.db.dao.entity.CommentEntity;
-import com.abubusoft.kripton.basicsample.db.dao.entity.ProductEntity;
+
+import com.abubusoft.kripton.basicsample.R;
+import com.abubusoft.kripton.basicsample.model.Comment;
+import com.abubusoft.kripton.basicsample.repository.db.dao.entity.CommentEntity;
+import com.abubusoft.kripton.basicsample.repository.db.dao.entity.ProductEntity;
+import com.abubusoft.kripton.basicsample.viewmodel.ProductViewModel;
+
+import com.abubusoft.kripton.basicsample.databinding.ProductFragmentBinding;
 
 import java.util.List;
 
@@ -29,6 +51,7 @@ public class ProductFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         // Inflate this data binding layout
         mBinding = DataBindingUtil.inflate(inflater, R.layout.product_fragment, container, false);
+
 
         // Create and set the adapter for the RecyclerView.
         mCommentAdapter = new CommentAdapter(mCommentClickCallback);
@@ -49,7 +72,7 @@ public class ProductFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ProductViewModel.Factory factory = new ProductViewModel.Factory(
-                getActivity().getApplication(), getArguments().getInt(KEY_PRODUCT_ID));
+                getActivity().getApplication(), getArguments().getLong(KEY_PRODUCT_ID));
 
         final ProductViewModel model = ViewModelProviders.of(this, factory)
                 .get(ProductViewModel.class);
@@ -84,10 +107,10 @@ public class ProductFragment extends Fragment {
     }
 
     /** Creates product fragment for specific product ID */
-    public static ProductFragment forProduct(int productId) {
+    public static ProductFragment forProduct(long productId) {
         ProductFragment fragment = new ProductFragment();
         Bundle args = new Bundle();
-        args.putInt(KEY_PRODUCT_ID, productId);
+        args.putLong(KEY_PRODUCT_ID, productId);
         fragment.setArguments(args);
         return fragment;
     }

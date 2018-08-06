@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.abubusoft.kripton.basicsample.viewmodel;
 
 import android.app.Application;
@@ -8,11 +24,10 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-
 import com.abubusoft.kripton.basicsample.BasicApp;
-import com.abubusoft.kripton.basicsample.db.BindAppDataSource;
-import com.abubusoft.kripton.basicsample.db.dao.entity.CommentEntity;
-import com.abubusoft.kripton.basicsample.db.dao.entity.ProductEntity;
+import com.abubusoft.kripton.basicsample.repository.DataRepository;
+import com.abubusoft.kripton.basicsample.repository.db.dao.entity.CommentEntity;
+import com.abubusoft.kripton.basicsample.repository.db.dao.entity.ProductEntity;
 
 import java.util.List;
 
@@ -22,17 +37,17 @@ public class ProductViewModel extends AndroidViewModel {
 
     public ObservableField<ProductEntity> product = new ObservableField<>();
 
-    private final int mProductId;
+    private final long mProductId;
 
     private final LiveData<List<CommentEntity>> mObservableComments;
 
-    public ProductViewModel(@NonNull Application application, BindAppDataSource repository,
-            final int productId) {
+    public ProductViewModel(@NonNull Application application, DataRepository repository,
+            final long productId) {
         super(application);
         mProductId = productId;
 
-        mObservableComments = repository.getCommentDao().loadComments(mProductId);
-        mObservableProduct = repository.getProductDao().loadProduct(mProductId);
+        mObservableComments = repository.loadComments(mProductId);
+        mObservableProduct = repository.loadProduct(mProductId);
     }
 
     /**
@@ -61,11 +76,11 @@ public class ProductViewModel extends AndroidViewModel {
         @NonNull
         private final Application mApplication;
 
-        private final int mProductId;
+        private final long mProductId;
 
-        private final BindAppDataSource mRepository;
+        private final DataRepository mRepository;
 
-        public Factory(@NonNull Application application, int productId) {
+        public Factory(@NonNull Application application, long productId) {
             mApplication = application;
             mProductId = productId;
             mRepository = ((BasicApp) application).getRepository();
