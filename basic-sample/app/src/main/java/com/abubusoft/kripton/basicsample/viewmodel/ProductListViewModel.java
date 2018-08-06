@@ -37,9 +37,6 @@ public class ProductListViewModel extends AndroidViewModel {
         super(application);
 
         repository=((BasicApp) application).getRepository();
-
-        // observe the changes of the products from the database and forward them
-        //mObservableProducts.addSource(products, mObservableProducts::setValue);
     }
 
     /**

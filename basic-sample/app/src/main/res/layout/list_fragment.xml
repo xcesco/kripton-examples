@@ -67,7 +67,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:onClick="@{() ->  callback.onClick()}"
-            app:srcCompat="@android:drawable/ic_input_add"
+            app:srcCompat="@android:drawable/ic_input_delete"
             app:visibleGone="@{!isLoading}" />
 
     </android.support.design.widget.CoordinatorLayout>

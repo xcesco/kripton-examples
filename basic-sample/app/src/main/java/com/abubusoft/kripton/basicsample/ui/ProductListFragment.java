@@ -30,7 +30,6 @@ import android.view.ViewGroup;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.basicsample.R;
 import com.abubusoft.kripton.basicsample.model.Product;
-import com.abubusoft.kripton.basicsample.repository.db.dao.entity.ProductEntity;
 import com.abubusoft.kripton.basicsample.viewmodel.ProductListViewModel;
 
 import com.abubusoft.kripton.basicsample.databinding.ListFragmentBinding;
