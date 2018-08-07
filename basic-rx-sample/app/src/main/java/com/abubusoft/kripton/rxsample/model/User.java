@@ -38,7 +38,7 @@ public class User {
 
     public User(String userName) {
         id = UUID.randomUUID().toString();
-        userName = userName;
+        this.userName = userName;
     }
 
     public User(String id, String userName) {

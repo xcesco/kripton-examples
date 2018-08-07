@@ -36,7 +36,7 @@ public interface UserDao {
      * @return the user from the table
      */
     @BindSqlSelect(where="id=:id", pageSize = 1)
-    User getUser(long id);
+    User getUser(String id);
 
     /**
      * Insert a user in the database. If the user already exists, replace it.

@@ -4,53 +4,53 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Film {
-    private String Title;
-
     public String getTitle() {
-        return this.Title;
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
-
-    private String Year;
 
     public String getYear() {
-        return this.Year;
+        return year;
     }
 
-    public void setYear(String Year) {
-        this.Year = Year;
+    public void setYear(String year) {
+        this.year = year;
     }
-
-    private String imdbID;
 
     public String getImdbID() {
-        return this.imdbID;
+        return imdbID;
     }
 
     public void setImdbID(String imdbID) {
         this.imdbID = imdbID;
     }
 
-    private String Type;
-
     public String getType() {
-        return this.Type;
+        return type;
     }
 
-    public void setType(String Type) {
-        this.Type = Type;
+    public void setType(String type) {
+        this.type = type;
     }
-
-    private String Poster;
 
     public String getPoster() {
-        return this.Poster;
+        return poster;
     }
 
-    public void setPoster(String Poster) {
-        this.Poster = Poster;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
+
+    private String title;
+
+    private String year;
+
+    private String imdbID;
+
+    private String type;
+
+    private String poster;
 }

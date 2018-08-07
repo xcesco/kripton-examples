@@ -44,8 +44,8 @@ public class LocalRepositoryImpl implements LocalRepository {
     public Observable<User> getUser() {
         return dataSource.getUserSubject().map(t -> {
             User createdUser = null;
-            if (t.operationType == SqlModificationType.INSERT) {
-                long id = t.value;
+            if (t.getOperationType() == SqlModificationType.INSERT) {
+                String id = t.getLastInsertedUid();
 
                 createdUser = dataSource.getUserDao().getUser(id);
 

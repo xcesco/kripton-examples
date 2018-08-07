@@ -7,33 +7,33 @@ import java.util.List;
 
 @BindType
 public class Search {
-    private List<Film> Search;
-
     public List<Film> getSearch() {
-        return this.Search;
+        return search;
     }
 
-    public void setSearch(List<Film> Search) {
-        this.Search = Search;
+    public void setSearch(List<Film> search) {
+        this.search = search;
     }
-
-    private String totalResults;
 
     public String getTotalResults() {
-        return this.totalResults;
+        return totalResults;
     }
 
     public void setTotalResults(String totalResults) {
         this.totalResults = totalResults;
     }
 
-    private String Response;
-
     public String getResponse() {
-        return this.Response;
+        return response;
     }
 
-    public void setResponse(String Response) {
-        this.Response = Response;
+    public void setResponse(String response) {
+        this.response = response;
     }
+
+    private List<Film> search;
+
+    private String totalResults;
+
+    private String response;
 }

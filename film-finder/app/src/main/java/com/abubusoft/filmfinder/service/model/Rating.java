@@ -4,23 +4,24 @@ import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Rating {
-    private String Source;
-
     public String getSource() {
-        return this.Source;
+        return source;
     }
 
-    public void setSource(String Source) {
-        this.Source = Source;
+    public void setSource(String source) {
+        this.source = source;
     }
-
-    private String Value;
 
     public String getValue() {
-        return this.Value;
+        return value;
     }
 
-    public void setValue(String Value) {
-        this.Value = Value;
+    public void setValue(String value) {
+        this.value = value;
     }
+
+    private String source;
+
+    private String value;
+
 }
