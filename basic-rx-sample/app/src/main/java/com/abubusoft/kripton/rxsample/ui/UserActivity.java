@@ -99,7 +99,9 @@ public class UserActivity extends AppCompatActivity {
         mDisposable.add(mViewModel.updateUserName(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> mUpdateButton.setEnabled(true),
+                .subscribe(() -> {
+                            mUpdateButton.setEnabled(true);
+                        },
                         throwable -> Log.e(TAG, "Unable to update username", throwable)));
     }
 }

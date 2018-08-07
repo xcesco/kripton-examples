@@ -6,253 +6,253 @@ import java.util.List;
 
 @BindType
 public class FilmDetail {
-    private String Title;
-
     public String getTitle() {
-        return this.Title;
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
-
-    private String Year;
 
     public String getYear() {
-        return this.Year;
+        return year;
     }
 
-    public void setYear(String Year) {
-        this.Year = Year;
+    public void setYear(String year) {
+        this.year = year;
     }
-
-    private String Rated;
 
     public String getRated() {
-        return this.Rated;
+        return rated;
     }
 
-    public void setRated(String Rated) {
-        this.Rated = Rated;
+    public void setRated(String rated) {
+        this.rated = rated;
     }
-
-    private String Released;
 
     public String getReleased() {
-        return this.Released;
+        return released;
     }
 
-    public void setReleased(String Released) {
-        this.Released = Released;
+    public void setReleased(String released) {
+        this.released = released;
     }
-
-    private String Runtime;
 
     public String getRuntime() {
-        return this.Runtime;
+        return runtime;
     }
 
-    public void setRuntime(String Runtime) {
-        this.Runtime = Runtime;
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
     }
-
-    private String Genre;
 
     public String getGenre() {
-        return this.Genre;
+        return genre;
     }
 
-    public void setGenre(String Genre) {
-        this.Genre = Genre;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
-
-    private String Director;
 
     public String getDirector() {
-        return this.Director;
+        return director;
     }
 
-    public void setDirector(String Director) {
-        this.Director = Director;
+    public void setDirector(String director) {
+        this.director = director;
     }
-
-    private String Writer;
 
     public String getWriter() {
-        return this.Writer;
+        return writer;
     }
 
-    public void setWriter(String Writer) {
-        this.Writer = Writer;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
-
-    private String Actors;
 
     public String getActors() {
-        return this.Actors;
+        return actors;
     }
 
-    public void setActors(String Actors) {
-        this.Actors = Actors;
+    public void setActors(String actors) {
+        this.actors = actors;
     }
-
-    private String Plot;
 
     public String getPlot() {
-        return this.Plot;
+        return plot;
     }
 
-    public void setPlot(String Plot) {
-        this.Plot = Plot;
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
-
-    private String Language;
 
     public String getLanguage() {
-        return this.Language;
+        return language;
     }
 
-    public void setLanguage(String Language) {
-        this.Language = Language;
+    public void setLanguage(String language) {
+        this.language = language;
     }
-
-    private String Country;
 
     public String getCountry() {
-        return this.Country;
+        return country;
     }
 
-    public void setCountry(String Country) {
-        this.Country = Country;
+    public void setCountry(String country) {
+        this.country = country;
     }
-
-    private String Awards;
 
     public String getAwards() {
-        return this.Awards;
+        return awards;
     }
 
-    public void setAwards(String Awards) {
-        this.Awards = Awards;
+    public void setAwards(String awards) {
+        this.awards = awards;
     }
-
-    private String Poster;
 
     public String getPoster() {
-        return this.Poster;
+        return poster;
     }
 
-    public void setPoster(String Poster) {
-        this.Poster = Poster;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
-
-    private List<Rating> Ratings;
 
     public List<Rating> getRatings() {
-        return this.Ratings;
+        return ratings;
     }
 
-    public void setRatings(List<Rating> Ratings) {
-        this.Ratings = Ratings;
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
-
-    private String Metascore;
 
     public String getMetascore() {
-        return this.Metascore;
+        return metascore;
     }
 
-    public void setMetascore(String Metascore) {
-        this.Metascore = Metascore;
+    public void setMetascore(String metascore) {
+        this.metascore = metascore;
     }
-
-    private String imdbRating;
 
     public String getImdbRating() {
-        return this.imdbRating;
+        return imdbRating;
     }
 
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
 
-    private String imdbVotes;
-
     public String getImdbVotes() {
-        return this.imdbVotes;
+        return imdbVotes;
     }
 
     public void setImdbVotes(String imdbVotes) {
         this.imdbVotes = imdbVotes;
     }
 
-    private String imdbID;
-
     public String getImdbID() {
-        return this.imdbID;
+        return imdbID;
     }
 
     public void setImdbID(String imdbID) {
         this.imdbID = imdbID;
     }
 
-    private String Type;
-
     public String getType() {
-        return this.Type;
+        return type;
     }
 
-    public void setType(String Type) {
-        this.Type = Type;
+    public void setType(String type) {
+        this.type = type;
     }
-
-    private String DVD;
 
     public String getDVD() {
-        return this.DVD;
+        return dVD;
     }
 
     public void setDVD(String DVD) {
-        this.DVD = DVD;
+        this.dVD = DVD;
     }
-
-    private String BoxOffice;
 
     public String getBoxOffice() {
-        return this.BoxOffice;
+        return boxOffice;
     }
 
-    public void setBoxOffice(String BoxOffice) {
-        this.BoxOffice = BoxOffice;
+    public void setBoxOffice(String boxOffice) {
+        this.boxOffice = boxOffice;
     }
-
-    private String Production;
 
     public String getProduction() {
-        return this.Production;
+        return production;
     }
 
-    public void setProduction(String Production) {
-        this.Production = Production;
+    public void setProduction(String production) {
+        this.production = production;
     }
-
-    private String Website;
 
     public String getWebsite() {
-        return this.Website;
+        return website;
     }
 
-    public void setWebsite(String Website) {
-        this.Website = Website;
+    public void setWebsite(String website) {
+        this.website = website;
     }
-
-    private String Response;
 
     public String getResponse() {
-        return this.Response;
+        return response;
     }
 
-    public void setResponse(String Response) {
-        this.Response = Response;
+    public void setResponse(String response) {
+        this.response = response;
     }
+
+    private String title;
+
+    private String year;
+
+    private String rated;
+
+    private String released;
+
+    private String runtime;
+
+    private String genre;
+
+    private String director;
+
+    private String writer;
+
+    private String actors;
+
+    private String plot;
+
+    private String language;
+
+    private String country;
+
+    private String awards;
+
+    private String poster;
+
+    private List<Rating> ratings;
+
+    private String metascore;
+
+    private String imdbRating;
+
+    private String imdbVotes;
+
+    private String imdbID;
+
+    private String type;
+
+    private String dVD;
+
+    private String boxOffice;
+
+    private String production;
+
+    private String website;
+
+    private String response;
 }
