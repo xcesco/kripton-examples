@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 
+// https://codelabs.developers.google.com/codelabs/android-persistence/#7
 public class SampleApplication extends Application {
     @Override
     public void onCreate() {
