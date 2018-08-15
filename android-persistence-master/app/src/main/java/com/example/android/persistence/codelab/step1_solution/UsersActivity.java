@@ -20,9 +20,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.example.android.codelabs.persistence.R;
 import com.example.android.persistence.codelab.db.BindAppDataSource;
 import com.example.android.persistence.codelab.db.User;
+import com.example.android.persistence.codelab.db.utils.DataSourcePopulator;
 
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +44,7 @@ public class UsersActivity extends AppCompatActivity {
         mYoungUsersTextView = findViewById(R.id.young_users_tv);
 
         // Note: Db references should not be in an activity.
-       // mDb = AppDatabase.getInMemoryDatabase(getApplicationContext());
+        mDb = BindAppDataSource.build(DataSourceOptions.builder().inMemory(true).populator(new DataSourcePopulator()).build());
 
         //populateDb();
 
