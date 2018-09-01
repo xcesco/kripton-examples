@@ -18,4 +18,6 @@
     <string name="app_name">PagingSample</string>
     <string name="add_cheese">add cheese</string>
     <string name="add">add</string>
+    <string name="previous_page">Previous</string>
+    <string name="next_page">Next</string>
 </resources>
