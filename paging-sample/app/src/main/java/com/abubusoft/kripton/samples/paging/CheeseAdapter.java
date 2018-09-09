@@ -47,10 +47,6 @@ public class CheeseAdapter extends RecyclerView.Adapter<CheeseAdapter.CheeseView
 
     @Override
     public void onBindViewHolder(CheeseViewHolder holder, int position) {
-        if (position==items.size()-1) {
-            Logger.info("*********************");
-        }
-
         holder.item = items.get(position);
         holder.nameView.setText(holder.item.getName());
     }

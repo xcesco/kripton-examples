@@ -54,11 +54,11 @@ public class CheeseViewModel extends AndroidViewModel {
 
 
     public void previousPage() {
-        allCheeses.moveToPreviousPage();
+        allCheeses.previousPage();
     }
 
     public void nextPage() {
-        allCheeses.moveToNextPage();
+        allCheeses.nextPage();
     }
 
     public int getCurrentPageIndex() {
