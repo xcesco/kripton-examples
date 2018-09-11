@@ -20,6 +20,7 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import android.support.annotation.VisibleForTesting
+import com.abubusoft.kripton.annotation.Bind
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
 import com.android.example.paging.pagingwithnetwork.reddit.db.RedditDb
 import com.android.example.paging.pagingwithnetwork.reddit.repository.RedditPostRepository
@@ -79,18 +80,21 @@ open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolea
     private val NETWORK_IO = Executors.newFixedThreadPool(5)
 
     private val db by lazy {
-        fun create(context: Context, useInMemory : Boolean): RedditDb {
-            val databaseBuilder = if(useInMemory) {
-                Room.inMemoryDatabaseBuilder(context, RedditDb::class.java)
-            } else {
-                Room.databaseBuilder(context, RedditDb::class.java, "reddit.db")
-            }
-            return databaseBuilder
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
-
-        RedditDb.create(app, useInMemoryDb)
+//        BindRedditDataSource.
+//        fun create(context: Context, useInMemory : Boolean): RedditDb {
+//            Bind
+//            val databaseBuilder = if(useInMemory) {
+//                Room.inMemoryDatabaseBuilder(context, RedditDb::class.java)
+//            } else {
+//                Room.databaseBuilder(context, RedditDb::class.java, "reddit.db")
+//            }
+//            return databaseBuilder
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//        }
+//
+//        RedditDb.create(app, useInMemoryDb)
+        null
     }
 
     private val api by lazy {

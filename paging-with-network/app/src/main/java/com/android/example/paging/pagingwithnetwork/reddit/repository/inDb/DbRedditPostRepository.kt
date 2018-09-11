@@ -23,7 +23,6 @@ import android.arch.paging.LivePagedListBuilder
 import android.support.annotation.MainThread
 import com.android.example.paging.pagingwithnetwork.reddit.api.ListingResponse
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
-import com.android.example.paging.pagingwithnetwork.reddit.db.RedditDb
 import com.android.example.paging.pagingwithnetwork.reddit.repository.Listing
 import com.android.example.paging.pagingwithnetwork.reddit.repository.NetworkState
 import com.android.example.paging.pagingwithnetwork.reddit.repository.RedditPostRepository
@@ -38,10 +37,10 @@ import java.util.concurrent.Executor
  * listing that loads in pages.
  */
 class DbRedditPostRepository(
-        val db: RedditDb,
+        /*  val db: BindRedditDataSource,*/
         private val redditApi: RedditApi,
         private val ioExecutor: Executor,
-        private val networkPageSize: Int = DEFAULT_NETWORK_PAGE_SIZE) : RedditPostRepository {
+        private val networkPageSize: Int = DEFAULT_NETWORK_PAGE_SIZE) /*: RedditPostRepository*/ {
     companion object {
         private const val DEFAULT_NETWORK_PAGE_SIZE = 10
     }
@@ -51,14 +50,15 @@ class DbRedditPostRepository(
      */
     private fun insertResultIntoDb(subredditName: String, body: ListingResponse?) {
         body!!.data.children.let { posts ->
-            db.runInTransaction {
-                val start = db.posts().getNextIndexInSubreddit(subredditName)
-                val items = posts.mapIndexed { index, child ->
-                    child.data.indexInResponse = start + index
-                    child.data
-                }
-                db.posts().insert(items)
-            }
+            /*  db.runInTransaction {
+                  val start = db.posts().getNextIndexInSubreddit(subredditName)
+                  val items = posts.mapIndexed { index, child ->
+                      child.data.indexInResponse = start + index
+                      child.data
+                  }
+                  db.posts().insert(items)
+              }*/
+            null
         }
     }
 
@@ -84,10 +84,10 @@ class DbRedditPostRepository(
                             call: Call<ListingResponse>,
                             response: Response<ListingResponse>) {
                         ioExecutor.execute {
-                            db.runInTransaction {
+                            /*db.runInTransaction {
                                 db.posts().deleteBySubreddit(subredditName)
                                 insertResultIntoDb(subredditName, response.body())
-                            }
+                            }*/
                             // since we are in bg thread now, post the result.
                             networkState.postValue(NetworkState.LOADED)
                         }
@@ -100,7 +100,7 @@ class DbRedditPostRepository(
     /**
      * Returns a Listing for the given subreddit.
      */
-    @MainThread
+   /* @MainThread
     override fun postsOfSubreddit(subReddit: String, pageSize: Int): Listing<RedditPost> {
         // create a boundary callback which will observe when the user reaches to the edges of
         // the list and update the database with extra data.
@@ -133,7 +133,7 @@ class DbRedditPostRepository(
                     refreshTrigger.value = null
                 },
                 refreshState = refreshState
-        )
-    }
+        ) * /
+    }*/
 }
 

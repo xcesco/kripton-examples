@@ -16,20 +16,17 @@
 
 package com.android.example.paging.pagingwithnetwork.reddit.db
 
-import android.arch.paging.DataSource
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
 import com.abubusoft.kripton.android.annotation.BindDao
 import com.abubusoft.kripton.android.annotation.BindSqlDelete
+import com.abubusoft.kripton.android.annotation.BindSqlInsert
 import com.abubusoft.kripton.android.annotation.BindSqlSelect
 import com.abubusoft.kripton.android.livedata.PagedLiveData
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
 
 @BindDao(RedditPost::class)
 interface RedditPostDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
     fun insert(post : List<RedditPost>)
 
     @BindSqlSelect(where="subreddit = :subreddit", orderBy = "indexInResponse ASC")

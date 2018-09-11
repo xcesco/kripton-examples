@@ -18,13 +18,14 @@ package com.android.example.paging.pagingwithnetwork.reddit.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.paging.PagedList
+import com.abubusoft.kripton.android.livedata.PagedLiveData
 
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system
  */
 data class Listing<T>(
         // the LiveData of paged lists for the UI to observe
-        val pagedList: LiveData<PagedList<T>>,
+        val pagedList: PagedLiveData<T>?,
         // represents the network request status to show to the user
         val networkState: LiveData<NetworkState>,
         // represents the refresh status to show to the user. Separate from networkState, this

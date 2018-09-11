@@ -16,12 +16,7 @@
 
 package com.android.example.paging.pagingwithnetwork.reddit.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
-import android.content.Context
 import com.abubusoft.kripton.android.annotation.BindDataSource
-import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
 
 /**
  * Database schema used by the DbRedditPostRepository

@@ -20,31 +20,37 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
+import com.abubusoft.kripton.android.ColumnType
+import com.abubusoft.kripton.android.annotation.BindIndex
+import com.abubusoft.kripton.android.annotation.BindSqlColumn
+import com.abubusoft.kripton.android.annotation.BindSqlType
 import com.abubusoft.kripton.annotation.BindType
 import com.google.gson.annotations.SerializedName
 
 @BindType
-@Entity(tableName = "posts",
-        indices = [Index(value = ["subreddit"], unique = false)])
+@BindSqlType(name="posts")
 data class RedditPost(
-        @PrimaryKey
-        @SerializedName("name")
+        @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
         val name: String,
-        @SerializedName("title")
+
         val title: String,
-        @SerializedName("score")
+
         val score: Int,
-        @SerializedName("author")
+
         val author: String,
-        @SerializedName("subreddit") // this seems mutable but fine for a demo
-        @ColumnInfo(collate = ColumnInfo.NOCASE)
+
+        @BindSqlColumn(columnType = ColumnType.INDEXED)
         val subreddit: String,
-        @SerializedName("num_comments")
-        val num_comments: Int,
-        @SerializedName("created_utc")
+
+        val numComments: Int,
+
+        @BindSqlColumn("created_utc")
         val created: Long,
+
         val thumbnail: String?,
+
         val url: String?,
+
         var indexInResponse: Int = -1) {
     // to be consistent w/ changing backend order, we need to keep a data like this
 
