@@ -16,17 +16,35 @@
 
 package com.android.example.paging.pagingwithnetwork.reddit.db
 
-import com.abubusoft.kripton.android.annotation.BindDataSource
+import com.abubusoft.kripton.android.annotation.*
+import com.abubusoft.kripton.android.livedata.PagedLiveData
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType
+import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
 
 /**
  * Database schema used by the DbRedditPostRepository
  */
 @BindDataSource(
-        daoSet = [RedditPostDao::class],
+        daoSet = [PostDao::class],
         version = 1,
         schema = false,
         fileName="reddit.db"
 )
 interface RedditDataSource {
 
+}
+
+@BindDao(RedditPost::class)
+interface PostDao {
+    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
+    fun insert(post : List<RedditPost>)
+
+    @BindSqlSelect(where="subreddit = :subreddit", orderBy = "indexInResponse ASC")
+    fun postsBySubreddit(subreddit : String) : PagedLiveData<RedditPost>
+
+    @BindSqlDelete(where="subreddit = :subreddit")
+    fun deleteBySubreddit(subreddit: String)
+
+    @BindSqlSelect(jql="SELECT MAX(indexInResponse) + 1 FROM posts WHERE subreddit = :subreddit")
+    fun getNextIndexInSubreddit(subreddit: String) : Int
 }

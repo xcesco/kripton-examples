@@ -19,7 +19,6 @@ package com.android.example.paging.pagingwithnetwork.reddit.repository.inDb
 import android.arch.paging.PagedList
 import android.arch.paging.PagingRequestHelper
 import android.support.annotation.MainThread
-import com.android.example.paging.pagingwithnetwork.reddit.api.ListingResponse
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
 import com.android.example.paging.pagingwithnetwork.reddit.util.createStatusLiveData
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
@@ -38,7 +37,7 @@ import java.util.concurrent.Executor
 class SubredditBoundaryCallback(
         private val subredditName: String,
         private val webservice: RedditApi,
-        private val handleResponse: (String, ListingResponse?) -> Unit,
+        private val handleResponse: (String, RedditApi.ListingResponse?) -> Unit,
         private val ioExecutor: Executor,
         private val networkPageSize: Int)
     : PagedList.BoundaryCallback<RedditPost>() {
@@ -78,7 +77,7 @@ class SubredditBoundaryCallback(
      * paging library takes care of refreshing the list if necessary.
      */
     private fun insertItemsIntoDb(
-            response: Response<ListingResponse>,
+            response: Response<RedditApi.ListingResponse>,
             it: PagingRequestHelper.Request.Callback) {
         ioExecutor.execute {
             handleResponse(subredditName, response.body())
@@ -91,17 +90,17 @@ class SubredditBoundaryCallback(
     }
 
     private fun createWebserviceCallback(it: PagingRequestHelper.Request.Callback)
-            : Callback<ListingResponse> {
-        return object : Callback<ListingResponse> {
+            : Callback<RedditApi.ListingResponse> {
+        return object : Callback<RedditApi.ListingResponse> {
             override fun onFailure(
-                    call: Call<ListingResponse>,
+                    call: Call<RedditApi.ListingResponse>,
                     t: Throwable) {
                 it.recordFailure(t)
             }
 
             override fun onResponse(
-                    call: Call<ListingResponse>,
-                    response: Response<ListingResponse>) {
+                    call: Call<RedditApi.ListingResponse>,
+                    response: Response<RedditApi.ListingResponse>) {
                 insertItemsIntoDb(response, it)
             }
         }

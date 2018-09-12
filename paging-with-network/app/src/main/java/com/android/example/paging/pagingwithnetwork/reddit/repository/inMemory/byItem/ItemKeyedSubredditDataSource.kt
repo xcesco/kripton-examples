@@ -18,7 +18,6 @@ package com.android.example.paging.pagingwithnetwork.reddit.repository.inMemory.
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.ItemKeyedDataSource
-import com.android.example.paging.pagingwithnetwork.reddit.api.ListingResponse
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
 import com.android.example.paging.pagingwithnetwork.reddit.repository.NetworkState
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
@@ -74,8 +73,8 @@ class ItemKeyedSubredditDataSource(
         redditApi.getTopAfter(subreddit = subredditName,
                 after = params.key,
                 limit = params.requestedLoadSize).enqueue(
-                object : retrofit2.Callback<ListingResponse> {
-                    override fun onFailure(call: Call<ListingResponse>, t: Throwable) {
+                object : retrofit2.Callback<RedditApi.ListingResponse> {
+                    override fun onFailure(call: Call<RedditApi.ListingResponse>, t: Throwable) {
                         // keep a lambda for future retry
                         retry = {
                             loadAfter(params, callback)
@@ -85,8 +84,8 @@ class ItemKeyedSubredditDataSource(
                     }
 
                     override fun onResponse(
-                            call: Call<ListingResponse>,
-                            response: Response<ListingResponse>) {
+                            call: Call<RedditApi.ListingResponse>,
+                            response: Response<RedditApi.ListingResponse>) {
                         if (response.isSuccessful) {
                             val items = response.body()?.data?.children?.map { it.data } ?: emptyList()
                             // clear retry since last request succeeded

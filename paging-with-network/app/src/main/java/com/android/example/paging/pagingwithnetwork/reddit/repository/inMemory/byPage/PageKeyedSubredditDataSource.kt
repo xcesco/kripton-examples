@@ -18,7 +18,6 @@ package com.android.example.paging.pagingwithnetwork.reddit.repository.inMemory.
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
-import com.android.example.paging.pagingwithnetwork.reddit.api.ListingResponse
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
 import com.android.example.paging.pagingwithnetwork.reddit.repository.NetworkState
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
@@ -69,8 +68,8 @@ class PageKeyedSubredditDataSource(
         redditApi.getTopAfter(subreddit = subredditName,
                 after = params.key,
                 limit = params.requestedLoadSize).enqueue(
-                object : retrofit2.Callback<ListingResponse> {
-                    override fun onFailure(call: Call<ListingResponse>, t: Throwable) {
+                object : retrofit2.Callback<RedditApi.ListingResponse> {
+                    override fun onFailure(call: Call<RedditApi.ListingResponse>, t: Throwable) {
                         retry = {
                             loadAfter(params, callback)
                         }
@@ -78,8 +77,8 @@ class PageKeyedSubredditDataSource(
                     }
 
                     override fun onResponse(
-                            call: Call<ListingResponse>,
-                            response: Response<ListingResponse>) {
+                            call: Call<RedditApi.ListingResponse>,
+                            response: Response<RedditApi.ListingResponse>) {
                         if (response.isSuccessful) {
                             val data = response.body()?.data
                             val items = data?.children?.map { it.data } ?: emptyList()

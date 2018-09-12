@@ -21,8 +21,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.support.annotation.MainThread
-import com.android.example.paging.pagingwithnetwork.reddit.api.ListingResponse
 import com.android.example.paging.pagingwithnetwork.reddit.api.RedditApi
+import com.android.example.paging.pagingwithnetwork.reddit.db.RedditDb
 import com.android.example.paging.pagingwithnetwork.reddit.repository.Listing
 import com.android.example.paging.pagingwithnetwork.reddit.repository.NetworkState
 import com.android.example.paging.pagingwithnetwork.reddit.repository.RedditPostRepository
@@ -37,10 +37,10 @@ import java.util.concurrent.Executor
  * listing that loads in pages.
  */
 class DbRedditPostRepository(
-        /*  val db: BindRedditDataSource,*/
+        val db: RedditDb,
         private val redditApi: RedditApi,
         private val ioExecutor: Executor,
-        private val networkPageSize: Int = DEFAULT_NETWORK_PAGE_SIZE) /*: RedditPostRepository*/ {
+        private val networkPageSize: Int = DEFAULT_NETWORK_PAGE_SIZE) : RedditPostRepository {
     companion object {
         private const val DEFAULT_NETWORK_PAGE_SIZE = 10
     }
@@ -48,17 +48,16 @@ class DbRedditPostRepository(
     /**
      * Inserts the response into the database while also assigning position indices to items.
      */
-    private fun insertResultIntoDb(subredditName: String, body: ListingResponse?) {
+    private fun insertResultIntoDb(subredditName: String, body: RedditApi.ListingResponse?) {
         body!!.data.children.let { posts ->
-            /*  db.runInTransaction {
-                  val start = db.posts().getNextIndexInSubreddit(subredditName)
-                  val items = posts.mapIndexed { index, child ->
-                      child.data.indexInResponse = start + index
-                      child.data
-                  }
-                  db.posts().insert(items)
-              }*/
-            null
+            db.runInTransaction {
+                val start = db.posts().getNextIndexInSubreddit(subredditName)
+                val items = posts.mapIndexed { index, child ->
+                    child.data.indexInResponse = start + index
+                    child.data
+                }
+                db.posts().insert(items)
+            }
         }
     }
 
@@ -74,20 +73,20 @@ class DbRedditPostRepository(
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
         redditApi.getTop(subredditName, networkPageSize).enqueue(
-                object : Callback<ListingResponse> {
-                    override fun onFailure(call: Call<ListingResponse>, t: Throwable) {
+                object : Callback<RedditApi.ListingResponse> {
+                    override fun onFailure(call: Call<RedditApi.ListingResponse>, t: Throwable) {
                         // retrofit calls this on main thread so safe to call set value
                         networkState.value = NetworkState.error(t.message)
                     }
 
                     override fun onResponse(
-                            call: Call<ListingResponse>,
-                            response: Response<ListingResponse>) {
+                            call: Call<RedditApi.ListingResponse>,
+                            response: Response<RedditApi.ListingResponse>) {
                         ioExecutor.execute {
-                            /*db.runInTransaction {
+                            db.runInTransaction {
                                 db.posts().deleteBySubreddit(subredditName)
                                 insertResultIntoDb(subredditName, response.body())
-                            }*/
+                            }
                             // since we are in bg thread now, post the result.
                             networkState.postValue(NetworkState.LOADED)
                         }
@@ -100,7 +99,7 @@ class DbRedditPostRepository(
     /**
      * Returns a Listing for the given subreddit.
      */
-   /* @MainThread
+    @MainThread
     override fun postsOfSubreddit(subReddit: String, pageSize: Int): Listing<RedditPost> {
         // create a boundary callback which will observe when the user reaches to the edges of
         // the list and update the database with extra data.
@@ -133,7 +132,7 @@ class DbRedditPostRepository(
                     refreshTrigger.value = null
                 },
                 refreshState = refreshState
-        ) * /
-    }*/
+        )
+    }
 }
 

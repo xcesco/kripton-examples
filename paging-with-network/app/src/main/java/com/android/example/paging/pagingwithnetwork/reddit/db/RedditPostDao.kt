@@ -16,25 +16,24 @@
 
 package com.android.example.paging.pagingwithnetwork.reddit.db
 
-import com.abubusoft.kripton.android.annotation.BindDao
-import com.abubusoft.kripton.android.annotation.BindSqlDelete
-import com.abubusoft.kripton.android.annotation.BindSqlInsert
-import com.abubusoft.kripton.android.annotation.BindSqlSelect
-import com.abubusoft.kripton.android.livedata.PagedLiveData
-import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType
+import android.arch.paging.DataSource
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
 
-@BindDao(RedditPost::class)
+@Dao
 interface RedditPostDao {
-    @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
-    fun insert(post : List<RedditPost>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(posts : List<RedditPost>)
 
-    @BindSqlSelect(where="subreddit = :subreddit", orderBy = "indexInResponse ASC")
-    fun postsBySubreddit(subreddit : String) : PagedLiveData<RedditPost>
+    @Query("SELECT * FROM posts WHERE subreddit = :subreddit ORDER BY indexInResponse ASC")
+    fun postsBySubreddit(subreddit : String) : DataSource.Factory<Int, RedditPost>
 
-    @BindSqlDelete(where="subreddit = :subreddit")
+    @Query("DELETE FROM posts WHERE subreddit = :subreddit")
     fun deleteBySubreddit(subreddit: String)
 
-    @BindSqlSelect(jql="SELECT MAX(indexInResponse) + 1 FROM posts WHERE subreddit = :subreddit")
+    @Query("SELECT MAX(indexInResponse) + 1 FROM posts WHERE subreddit = :subreddit")
     fun getNextIndexInSubreddit(subreddit: String) : Int
 }
