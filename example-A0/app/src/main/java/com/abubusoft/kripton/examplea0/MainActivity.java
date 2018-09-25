@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 daoFactory.getStudentDao().getAllStudentWithBeanListener(new OnReadBeanListener<Student>() {
                     @Override
                     public void onRead(Student bean, int row, int rowCount) {
-                        // for each
+                        /* for each */
                     }
                 });
 

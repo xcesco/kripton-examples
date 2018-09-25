@@ -18,8 +18,12 @@ package com.example.android.persistence.codelab.db;
 
 import android.arch.persistence.room.ColumnInfo;
 
+import com.abubusoft.kripton.android.annotation.BindSqlType;
+import com.abubusoft.kripton.annotation.BindType;
+
 import java.util.Date;
 
+@BindSqlType
 public class LoanWithUserAndBook {
     public String id;
 

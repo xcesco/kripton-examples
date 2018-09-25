@@ -24,7 +24,7 @@ android {
 
 dependencies {
     def appcompatVersion = "27.1.1"
-    def kriptonVersion = "4.1.0-rc.13"
+    def kriptonVersion = "5.0.0-rc.4"
     def lifecycleVersion = "1.1.1"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"

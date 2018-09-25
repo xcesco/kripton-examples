@@ -1,7 +1,9 @@
 package com.abubusoft.kripton.samples.paging;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private Button addButton;
     private CheeseViewModel viewModel;
     private RecyclerView cheeseList;
+
+    private TextView tvCurrentPage;
+    private Button previousButton;
+    private Button nextButton;
+    private ProgressBar progressBar;
+    private TextView tvCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +40,29 @@ public class MainActivity extends AppCompatActivity {
         this.inputText=findViewById(R.id.inputText);
         this.addButton=findViewById(R.id.addButton);
         this.cheeseList=findViewById(R.id.cheeseList);
+        this.progressBar=findViewById(R.id.progressBar);
 
-        this.viewModel=ViewModelProviders.of(this).get(CheeseViewModel.class);
+        this.tvCurrentPage=findViewById(R.id.textViewCurrentPage);
+        this.tvCount=findViewById(R.id.textViewCount);
+
+        this.previousButton=findViewById(R.id.previousButton);
+        this.nextButton=findViewById(R.id.nextButton);
+
+        viewModel=ViewModelProviders.of(this).get(CheeseViewModel.class);
 
         CheeseAdapter adapter = new CheeseAdapter();
         cheeseList.setAdapter(adapter);
 
+        this.viewModel.getAllCheeses().observe(this, cheeses -> {
+            adapter.update(cheeses);
+            tvCurrentPage.setText(this.viewModel.getCurrentPageIndex()+" / ");
+            this.progressBar.setVisibility(View.INVISIBLE);
+        });
 
+        this.viewModel.getCheeseCount().observe(this, value -> tvCount.setText(""+value));
+
+
+        initButtons();
         initSwipeToDelete();
         initAddButtonListener();
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,6 +76,25 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+    }
+
+    private void initButtons() {
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.previousPage();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.nextPage();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void initSwipeToDelete() {
@@ -67,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.remove(((CheeseViewHolder)viewHolder).cheese);
+                viewModel.remove(((CheeseAdapter.CheeseViewHolder)viewHolder).item);
+                progressBar.setVisibility(View.VISIBLE);
             }
         }).attachToRecyclerView(cheeseList);
     }
@@ -85,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addCheese();
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -94,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     addCheese();
+                    progressBar.setVisibility(View.VISIBLE);
                     return true;
                 }
                 return false;

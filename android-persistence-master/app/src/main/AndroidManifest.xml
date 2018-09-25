@@ -28,15 +28,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name="com.example.android.persistence.codelab.SampleApplication"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.android.persistence.codelab.step1_solution.UsersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.android.persistence.codelab.step1.UsersActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.persistence.codelab.step2.JankShowUserActivity">
@@ -44,17 +42,7 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.android.persistence.codelab.step3.BooksBorrowedByUserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <activity android:name="com.example.android.persistence.codelab.step3_solution.BooksBorrowedByUserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.android.persistence.codelab.step4.TypeConvertersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -65,11 +53,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.persistence.codelab.step5_solution.CustomResultUserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.android.persistence.codelab.step5.CustomResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
