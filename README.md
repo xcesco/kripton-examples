@@ -33,6 +33,7 @@ This example get an BBC's RSS feed channel (XML) from a REST service, store feed
 
 Code is available <a href="https://github.com/xcesco/kripton-examples/tree/master/kotlin-rss-reader">here</a>.
 
+The RSS Feed is here:
 ```
 http://feeds.bbci.co.uk/news/rss.xml?edition=int
 ```
@@ -46,6 +47,7 @@ This simple app was built as showroom for some features of Kripton:
 - SQLite type adapter usage
 - SQLite relationship definition
 - How generate Live Data from DAO queries
+- How to use Kripton in a ViewModel 
 - How to write queries in compact mode
 - How to use dynamic where conditions in SQL queries
 
