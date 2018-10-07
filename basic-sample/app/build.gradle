@@ -38,7 +38,7 @@ android {
 
 dependencies {
     def appcompatVersion = "27.1.1"
-    def kriptonVersion = "5.0.0-rc.3"
+    def kriptonVersion = "5.0.0"
     def lifecycleVersion = "1.1.1"
 
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"

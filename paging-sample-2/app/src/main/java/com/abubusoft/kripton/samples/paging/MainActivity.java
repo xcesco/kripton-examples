@@ -54,17 +54,7 @@ public class MainActivity extends AppCompatActivity {
         cheeseList.setAdapter(adapter);
 
         this.viewModel.getAllCheeses().observe(this, cheeses -> {
-            if (viewModel.isFirstPage()) {
-                previousButton.setEnabled(false);
-            } else {
-                previousButton.setEnabled(true);
-            }
             adapter.update(cheeses);
-            if (cheeses.size()==0) {
-                nextButton.setEnabled(false);
-            } else if (!nextButton.isEnabled()) {
-                nextButton.setEnabled(true);
-            }
             tvCurrentPage.setText(this.viewModel.getCurrentPageIndex()+" / ");
             this.progressBar.setVisibility(View.INVISIBLE);
         });

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.abubusoft.kripton.samples.paging"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,12 +23,18 @@ android {
 }
 
 dependencies {
-    def appcompatVersion = "27.1.1"
-    def kriptonVersion = "5.0.0-rc.4"
+    def appcompatVersion = "28.0.0"
+    def kriptonVersion = "5.0.0"
     def lifecycleVersion = "1.1.1"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    def nav_version = "1.0.0-alpha06"
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
+
+    implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
+
     // Lifecycle
     annotationProcessor "android.arch.lifecycle:compiler:${lifecycleVersion}"
     implementation "android.arch.lifecycle:runtime:${lifecycleVersion}"
