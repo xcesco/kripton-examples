@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import android.support.v7.widget.LinearLayoutManager;
-
-import com.abubusoft.sharedpreferencewatcher.AbstractModel;
 import com.abubusoft.sharedpreferencewatcher.R;
 
 

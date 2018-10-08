@@ -2,14 +2,13 @@ package com.abubusoft.kripton.samples.paging;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 public class CheeseViewModel extends AndroidViewModel {
-    public BindCheeseDataSource getDataSource() {
-        return dataSource;
-    }
 
     private final BindCheeseDataSource dataSource;
 
@@ -20,22 +19,21 @@ public class CheeseViewModel extends AndroidViewModel {
     }
 
     public void insert(String text) {
-        dataSource.executeAsync(new BindCheeseDataSource.Transaction() {
-            @Override
-            public TransactionResult onExecute(BindCheeseDaoFactory daoFactory) {
-                daoFactory.getCheeseDao().insert(new Cheese(text));
-                return TransactionResult.COMMIT;
-            }
+        dataSource.executeAsync(daoFactory -> {
+            daoFactory.getCheeseDao().insert(new Cheese(text));
+            return TransactionResult.COMMIT;
         });
     }
 
     public void remove(Cheese cheese) {
-        dataSource.executeAsync(new BindCheeseDataSource.Transaction() {
-            @Override
-            public TransactionResult onExecute(BindCheeseDaoFactory daoFactory) {
-                daoFactory.getCheeseDao().delete(cheese);
-                return TransactionResult.COMMIT;
-            }
+        dataSource.executeAsync(daoFactory -> {
+            daoFactory.getCheeseDao().delete(cheese);
+            return TransactionResult.COMMIT;
         });
     }
+
+    public LiveData<PaginatedResult<Cheese>> getList() {
+        return dataSource.getCheeseDao().allCheesesByName();
+    }
+
 }

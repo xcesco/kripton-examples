@@ -33,18 +33,20 @@
         <activity android:name="com.example.android.persistence.codelab.step1_solution.UsersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER" />
+
 
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.persistence.codelab.step2.JankShowUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.persistence.codelab.step3_solution.BooksBorrowedByUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.persistence.codelab.step4_solution.TypeConvertersActivity">
@@ -55,6 +57,7 @@
         <activity android:name="com.example.android.persistence.codelab.step5_solution.CustomResultUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

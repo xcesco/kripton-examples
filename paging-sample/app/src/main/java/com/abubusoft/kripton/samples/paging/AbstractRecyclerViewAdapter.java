@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecyclerViewAdapter.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecyclerViewAdapter.ViewHolder<T>> extends RecyclerView.Adapter<VH> {
 
     public AbstractRecyclerViewAdapter() {
-        dataset = new ArrayList<T>();
+        dataset = new ArrayList<>();
     }
 
     public ArrayList<T> dataset;
@@ -32,28 +32,26 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
         dataset.clear();
     }
 
-    public static class Utility {
-
-        public static <E extends ViewHolder> View getItemView(E bean) {
-            return null;
-        }
-    }
+//    public static class Utility {
+//
+//        public static <E extends ViewHolder> View getItemView(E bean) {
+//            return null;
+//        }
+//    }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static abstract class ViewHolder extends RecyclerView.ViewHolder {
+    public static abstract class ViewHolder<T> extends RecyclerView.ViewHolder {
 
-        public ViewHolder(ViewGroup parent,
-                          int viewType) {
-            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.cheese_item, parent, false));
+        public ViewHolder(View view) {
+            super(view);
 
         }
 
-        public abstract void bindToView(View parentView);
+        public abstract void bindToView(View view);
 
-        abstract View getViewLayoutResourceId(ViewGroup parent,
-                                              int viewType);
+        public abstract void bindToItem(T item);
     }
 
     public void add(int position, T item) {
@@ -62,12 +60,12 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
     }
 
     public void update(List<T> items) {
-        if (items.size() != dataset.size()) {
+       // if (items.size() != dataset.size()) {
             dataset.clear();
 
             dataset.addAll(items);
             notifyDataSetChanged();
-        }
+       // }
     }
 
     public void remove(T item) {
@@ -86,18 +84,19 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
     public VH onCreateViewHolder(ViewGroup parent,
                                  int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(getViewLayoutResourceId(), parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cheese_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        VH vh = createViewHolder(parent, viewType);
+        VH vh = createViewHolder(v);
+        vh.bindToView(v);
 
         return vh;
     }
 
-    public abstract VH createViewHolder(View view);
+    protected abstract VH createViewHolder(View v);
 
-    public abstract int getViewLayoutResourceId();
-
-    public abstract void onBindItem(VH holder, T item);
+    public void onBindItem(VH holder, T item) {
+        holder.bindToItem(item);
+    }
 
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -107,6 +106,7 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
         // - replace the contents of the view with that element
 
         final T item = dataset.get(position);
+
 
         onBindItem(holder, item);
     }

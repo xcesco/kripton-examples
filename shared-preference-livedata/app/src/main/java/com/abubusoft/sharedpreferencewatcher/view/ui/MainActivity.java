@@ -14,7 +14,7 @@ import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.sharedpreferencewatcher.model.BindAppPreferences;
 import com.abubusoft.sharedpreferencewatcher.view.adapters.RecyclerViewAdapter;
 
-import com.abubusoft.sharedpreferencewatcher.AbstractModel;
+import com.abubusoft.sharedpreferencewatcher.view.adapters.AbstractModel;
 import com.abubusoft.sharedpreferencewatcher.R;
 import com.abubusoft.sharedpreferencewatcher.viewmodel.SharedPrefsViewModel;
 

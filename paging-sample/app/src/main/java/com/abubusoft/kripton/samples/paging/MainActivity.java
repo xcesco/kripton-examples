@@ -1,7 +1,9 @@
 package com.abubusoft.kripton.samples.paging;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
         CheeseAdapter adapter = new CheeseAdapter();
         cheeseList.setAdapter(adapter);
+
+        this.viewModel.getList().observe(this, (PaginatedResult<Cheese> cheesePaginatedResult) -> {
+            BindCheeseDataSource.getInstance().execute(daoFactory -> {
+                adapter.update(cheesePaginatedResult.execute());
+                return TransactionResult.COMMIT;
+            });
+
+        });
 
 
         initSwipeToDelete();

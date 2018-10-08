@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.samples.paging;
 
+import android.arch.lifecycle.LiveData;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -13,7 +15,7 @@ public interface CheeseDao {
      * it back to UI via ViewModel.
      */
     @BindSqlSelect(orderBy = "name COLLATE NOCASE ASC", pageSize = 20)
-    PaginatedResult<Cheese> allCheesesByName();
+    LiveData<PaginatedResult<Cheese>> allCheesesByName();
 
     @BindSqlInsert
     void insert(Cheese cheese);

@@ -16,10 +16,9 @@
 
 package com.example.android.persistence.codelab.db;
 
-import android.arch.persistence.room.ColumnInfo;
 
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
-import com.abubusoft.kripton.annotation.BindType;
 
 import java.util.Date;
 
@@ -27,10 +26,10 @@ import java.util.Date;
 public class LoanWithUserAndBook {
     public String id;
 
-    @ColumnInfo(name="title")
+    @BindSqlColumn("title")
     public String bookTitle;
 
-    @ColumnInfo(name="name")
+    @BindSqlColumn("name")
     public String userName;
 
     public Date startTime;

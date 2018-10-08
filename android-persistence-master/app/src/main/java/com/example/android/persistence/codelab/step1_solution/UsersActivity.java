@@ -44,7 +44,7 @@ public class UsersActivity extends AppCompatActivity {
         mYoungUsersTextView = findViewById(R.id.young_users_tv);
 
         // Note: Db references should not be in an activity.
-        mDb = BindAppDataSource.build(DataSourceOptions.builder().inMemory(true).populator(new DataSourcePopulator()).build());
+        mDb = BindAppDataSource.getInstance();
 
         //populateDb();
 

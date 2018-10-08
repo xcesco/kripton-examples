@@ -31,6 +31,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         jcenter()
         google()
     }
@@ -41,7 +42,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    kriptonVersion = "5.0.0-rc.1"
+    kriptonVersion = "5.0.0-rc.2"
     supportLibVersion = "27.1.1"
     runnerVersion = "1.0.1"
     rulesVersion = "1.0.1"

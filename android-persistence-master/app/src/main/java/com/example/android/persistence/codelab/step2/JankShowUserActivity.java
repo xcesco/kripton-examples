@@ -22,9 +22,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.example.android.codelabs.persistence.R;
 import com.example.android.persistence.codelab.db.BindAppDataSource;
 import com.example.android.persistence.codelab.db.Book;
+import com.example.android.persistence.codelab.db.utils.DataSourcePopulator;
 
 import java.util.List;
 
@@ -54,6 +56,7 @@ public class JankShowUserActivity extends AppCompatActivity {
 
         // Note: Db references should not be in an activity.
         mDb = BindAppDataSource.getInstance();
+
         //AppDatabase.getInMemoryDatabase(getApplicationContext());
 
         //populateDb();

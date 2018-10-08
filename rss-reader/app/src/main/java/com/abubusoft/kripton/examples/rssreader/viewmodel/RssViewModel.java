@@ -20,6 +20,8 @@ public class RssViewModel extends ViewModel {
 
     private final LiveData<List<Article>> articles;
 
+    private final MutableLiveData<FilterType> filterLiveData = new MutableLiveData<FilterType>();
+
     public RssViewModel() {
         articles=Transformations.switchMap(filterLiveData, v -> repository.getArticleList(v));
     }
@@ -45,8 +47,6 @@ public class RssViewModel extends ViewModel {
     public void downloadArticles() {
         repository.downloadArticles();
     }
-
-    private MutableLiveData<FilterType> filterLiveData = new MutableLiveData<FilterType>();
 
     public void updateFilter(FilterType filter) {
         filterLiveData.setValue(filter);

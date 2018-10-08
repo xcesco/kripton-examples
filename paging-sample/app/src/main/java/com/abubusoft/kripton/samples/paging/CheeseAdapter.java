@@ -10,11 +10,7 @@ public class CheeseAdapter extends AbstractRecyclerViewAdapter<Cheese, CheeseVie
 
     @Override
     public CheeseViewHolder createViewHolder(View view) {
-        return null;
+        return new CheeseViewHolder(view);
     }
 
-    @Override
-    public void onBindItem(CheeseViewHolder holder, Cheese item) {
-
-    }
 }
