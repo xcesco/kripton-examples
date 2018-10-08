@@ -39,7 +39,7 @@ android {
     buildToolsVersion '27.0.3'
 }
 
-def kriptonVersion = "4.0.0-rc.22"
+def kriptonVersion = "5.0.0-rc.3"
 
 dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"

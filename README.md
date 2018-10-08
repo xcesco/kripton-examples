@@ -27,10 +27,13 @@ How Kripton is fast to parse and convert JSON data format?
 For more information you read wiki page [Benchmarks](https://github.com/xcesco/kripton/wiki/Benchmarks)
 
 ## Rss Reader
-This simple RRS Reader is a sample app that takes an BBC's RSS feed channel and try to download it locally and persists with Kripton into a SQLite database.
+This example get an BBC's RSS feed channel (XML) from a REST service, store feeds in a SQLite database and show it. Data management is done using ViewModel, LiveData and Kripton Persistence Library.
 
-<img src="https://github.com/xcesco/kripton-examples/blob/master/rss-reader/screenshoots/screen1.png" width="300px"/>
+<img width="300px" src="https://github.com/xcesco/wikis/blob/master/kripton/rss-reader.gif"/>
 
+Code is available <a href="https://github.com/xcesco/kripton-examples/tree/master/kotlin-rss-reader">here</a>.
+
+The RSS Feed is here:
 ```
 http://feeds.bbci.co.uk/news/rss.xml?edition=int
 ```
@@ -44,6 +47,7 @@ This simple app was built as showroom for some features of Kripton:
 - SQLite type adapter usage
 - SQLite relationship definition
 - How generate Live Data from DAO queries
+- How to use Kripton in a ViewModel 
 - How to write queries in compact mode
 - How to use dynamic where conditions in SQL queries
 

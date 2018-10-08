@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.abubusoft.filmfinder.service.api.SearchService;
+import com.abubusoft.filmfinder.R;
 import com.bumptech.glide.Glide;
 
 public class DetailActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+/*
         final SearchService.Detail detail = getIntent().getParcelableExtra(MOVIE_DETAIL);
         final String imageUrl =  getIntent().getStringExtra(IMAGE_URL);
         Glide.with(this).load(imageUrl).into( (ImageView) findViewById(R.id.main_backdrop));
@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.grid_genre)).setText(detail.Genre);
         ((TextView) findViewById(R.id.grid_released)).setText(detail.Released);
         ((TextView) findViewById(R.id.grid_plot)).setText(detail.Plot);
-        ((TextView) findViewById(R.id.grid_runtime)).setText(detail.Runtime);
+        ((TextView) findViewById(R.id.grid_runtime)).setText(detail.Runtime);*/
 
     }
 

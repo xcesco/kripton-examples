@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kripton Paging Sample 2</string>
+    <string name="add_cheese">add cheese</string>
+    <string name="add">add</string>
+    <string name="refresh">Refresh</string>
+    <string name="next_page">Next</string>
+</resources>
