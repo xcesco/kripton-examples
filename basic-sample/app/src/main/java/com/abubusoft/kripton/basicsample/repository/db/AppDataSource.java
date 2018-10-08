@@ -7,10 +7,11 @@ import com.abubusoft.kripton.android.sqlite.adapters.DateMillisecondsTypeAdapter
 import com.abubusoft.kripton.basicsample.repository.db.dao.CommentDao;
 import com.abubusoft.kripton.basicsample.repository.db.dao.ProductDao;
 
-@BindDataSourceOptions(populator = AppDataSourcePopulator.class)
+@BindDataSourceOptions(populator = AppDataSourcePopulator.class, logEnabled = true)
 @BindDataSource(version = 1,
         daoSet = {CommentDao.class, ProductDao.class},
         fileName = "app.db",
+        log = false,
         typeAdapters = {
             @BindSqlAdapter(adapter = DateMillisecondsTypeAdapter.class)}
 )
