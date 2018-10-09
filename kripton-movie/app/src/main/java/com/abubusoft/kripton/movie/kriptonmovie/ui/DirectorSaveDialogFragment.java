@@ -13,10 +13,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.abubusoft.kripton.android.sqlite.TransactionResult;
+
 import com.abubusoft.kripton.movie.kriptonmovie.R;
-import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.BindMovieDataSource;
 import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.DirectorsViewModel;
 
 public class DirectorSaveDialogFragment extends DialogFragment {
@@ -81,6 +79,6 @@ public class DirectorSaveDialogFragment extends DialogFragment {
             return;
         }
 
-        directorsViewModel.insertOrUpdate(directorFullNameExtra, fullName);
+        directorsViewModel.insertOrUpdateDirector(directorFullNameExtra, fullName);
     }
 }

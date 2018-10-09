@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.movie.kriptonmovie.R;
-import com.abubusoft.kripton.movie.kriptonmovie.model.Movie;
 import com.abubusoft.kripton.movie.kriptonmovie.model.MovieWithDirector;
 import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.MoviesViewModel;
 
@@ -58,6 +58,7 @@ public class MoviesListFragment extends Fragment {
     private void initData() {
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
         moviesViewModel.getMoviesList().observe(this, (List<MovieWithDirector> movies) -> {
+            Logger.info("using live data to populate movies");
             moviesListAdapter.setMovieList(movies);
         });
     }

@@ -13,7 +13,6 @@ import com.abubusoft.kripton.movie.kriptonmovie.R;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Movie;
 import com.abubusoft.kripton.movie.kriptonmovie.model.MovieWithDirector;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.BindMovieDataSource;
 
 import java.util.List;
 

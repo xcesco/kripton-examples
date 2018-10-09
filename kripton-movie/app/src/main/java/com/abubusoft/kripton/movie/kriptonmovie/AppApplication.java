@@ -10,7 +10,5 @@ public class AppApplication extends Application {
         super.onCreate();
 
         KriptonLibrary.init(this);
-
-
     }
 }

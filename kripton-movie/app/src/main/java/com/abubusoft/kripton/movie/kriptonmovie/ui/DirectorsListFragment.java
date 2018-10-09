@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.movie.kriptonmovie.R;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
 import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.DirectorsViewModel;
@@ -55,7 +56,10 @@ public class DirectorsListFragment extends Fragment {
 
     private void initData() {
         directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
-        directorsViewModel.getDirectorList().observe(this, directors -> directorsListAdapter.setDirectorList(directors));
+        directorsViewModel.getDirectorList().observe(this, directors -> {
+            Logger.info("using live data to populate directors");
+            directorsListAdapter.setDirectorList(directors);
+        } );
     }
 
     public void removeData() {

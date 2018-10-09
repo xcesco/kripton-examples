@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.movie.kriptonmovie.persistence;
+package com.abubusoft.kripton.movie.kriptonmovie.persistence.datasource;
 
 import android.arch.lifecycle.LiveData;
 

@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.abubusoft.kripton.movie.kriptonmovie.R;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.BindMovieDataSource;
+import com.abubusoft.kripton.movie.kriptonmovie.persistence.MovieRepository;
 
 import static com.abubusoft.kripton.movie.kriptonmovie.ui.DirectorSaveDialogFragment.TAG_DIALOG_DIRECTOR_SAVE;
 import static com.abubusoft.kripton.movie.kriptonmovie.ui.MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE;
@@ -113,6 +113,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reCreateDatabase() {
-        BindMovieDataSource.getInstance().clearDbAsync();
+        MovieRepository.getInstance().clearDb();
     }
 }

@@ -2,6 +2,7 @@ package com.abubusoft.kripton.movie.kriptonmovie.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,13 +12,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.movie.kriptonmovie.R;
-import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
-import com.abubusoft.kripton.movie.kriptonmovie.model.Movie;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.BindMovieDataSource;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.DirectorDao;
-import com.abubusoft.kripton.movie.kriptonmovie.persistence.MovieDao;
+import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.MoviesViewModel;
 
 public class MovieSaveDialogFragment extends DialogFragment {
     private String movieTitleExtra;
@@ -26,6 +22,7 @@ public class MovieSaveDialogFragment extends DialogFragment {
     private static final String EXTRA_MOVIE_TITLE = "movie_title";
     private static final String EXTRA_MOVIE_DIRECTOR_FULL_NAME = "movie_director_full_name";
     public static final String TAG_DIALOG_MOVIE_SAVE = "dialog_movie_save";
+    private MoviesViewModel moviesViewModel;
 
     public static MovieSaveDialogFragment newInstance(final String movieTitle, final String movieDirectorFullName) {
         MovieSaveDialogFragment fragment = new MovieSaveDialogFragment();
@@ -67,6 +64,7 @@ public class MovieSaveDialogFragment extends DialogFragment {
             movieDirectorEditText.setText(movieDirectorFullNameExtra);
             movieDirectorEditText.setSelection(movieDirectorFullNameExtra.length());
         }
+        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
 
         alertDialogBuilder.setView(view)
                 .setTitle(getString(R.string.dialog_movie_title))
@@ -91,57 +89,8 @@ public class MovieSaveDialogFragment extends DialogFragment {
             return;
         }
 
-        BindMovieDataSource.getInstance().executeAsync(daoFactory -> {
-            long directorId = -1;
-            if (movieDirectorFullNameExtra != null) {
-                // clicked on item row -> update
-                Director directorToUpdate = daoFactory.getDirectorDao().findDirectorByName(movieDirectorFullNameExtra);
-                if (directorToUpdate != null) {
-                    directorId = directorToUpdate.id;
+        moviesViewModel.insertOrUpdateMovie(movieTitle, movieTitleExtra, movieDirectorFullName);
 
-                    if (!directorToUpdate.fullName.equals(movieDirectorFullName)) {
-                        directorToUpdate.fullName = movieDirectorFullName;
-                        daoFactory.getDirectorDao().update(directorToUpdate);
-                    }
-                }
-            } else {
-                // we need director id for movie object; in case director is already in DB,
-                // insert() would return -1, so we manually check if it exists and get
-                // the id of already saved director
-                Director newDirector = daoFactory.getDirectorDao().findDirectorByName(movieDirectorFullName);
-                if (newDirector == null) {
-                    directorId = (int) daoFactory.getDirectorDao().insert(movieDirectorFullName);
-                } else {
-                    directorId = newDirector.id;
-                }
-            }
 
-            if (movieTitleExtra != null) {
-                // clicked on item row -> update
-                Movie movieToUpdate = daoFactory.getMovieDao().findMovieByTitle(movieTitleExtra);
-                if (movieToUpdate != null) {
-                    if (!movieToUpdate.title.equals(movieTitle)) {
-                        movieToUpdate.title = movieTitle;
-                        if (directorId != -1) {
-                            movieToUpdate.directorId = directorId;
-                        }
-                        daoFactory.getMovieDao().update(movieToUpdate);
-                    }
-                }
-            } else {
-                // we can have many movies with same title but different director
-                Movie newMovie = daoFactory.getMovieDao().findMovieByTitle(movieTitle);
-                if (newMovie == null) {
-                    daoFactory.getMovieDao().insert(movieTitle, directorId);
-                } else {
-                    if (newMovie.directorId != directorId) {
-                        newMovie.directorId = directorId;
-                        daoFactory.getMovieDao().update(newMovie);
-                    }
-                }
-            }
-
-            return TransactionResult.COMMIT;
-        });
     }
 }

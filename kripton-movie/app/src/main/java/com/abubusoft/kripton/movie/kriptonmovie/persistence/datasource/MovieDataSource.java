@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.movie.kriptonmovie.persistence;
+package com.abubusoft.kripton.movie.kriptonmovie.persistence.datasource;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
@@ -6,13 +6,10 @@ import com.abubusoft.kripton.android.annotation.BindTransaction;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Movie;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @BindDataSourceOptions(populator = MoviePopulator.class)
-@BindDataSource(daoSet = {DirectorDao.class, MovieDao.class}, asyncTask = true, fileName = "movie.db")
+@BindDataSource(daoSet = {DirectorDao.class, MovieDao.class}, fileName = "movie.db")
 public interface MovieDataSource {
 
     @BindTransaction
