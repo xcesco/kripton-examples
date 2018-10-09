@@ -45,4 +45,23 @@ public class DirectorsViewModel extends AndroidViewModel {
             return TransactionResult.COMMIT;
         });
     }
+
+    public void insertOrUpdate(String directorFullNameExtra, String fullName) {
+        BindMovieDataSource.getInstance().executeAsync(daoFactory -> {
+            if (directorFullNameExtra != null) {
+                // clicked on item row -> update
+                Director directorToUpdate = daoFactory.getDirectorDao().findDirectorByName(directorFullNameExtra);
+                if (directorToUpdate != null) {
+                    if (!directorToUpdate.fullName.equals(fullName)) {
+                        directorToUpdate.fullName = fullName;
+                        daoFactory.getDirectorDao().update(directorToUpdate);
+                    }
+                }
+            } else {
+                // i don't need to create a directo to insert
+                daoFactory.getDirectorDao().insert(fullName);
+            }
+            return TransactionResult.COMMIT;
+        });
+    }
 }

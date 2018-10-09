@@ -45,30 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_movies:
-                        MOVIES_SHOWN = true;
-                        showFragment(MoviesListFragment.newInstance());
-                        return true;
-                    case R.id.navigation_directors:
-                        MOVIES_SHOWN = false;
-                        showFragment(DirectorsListFragment.newInstance());
-                        return true;
-                }
-                return false;
+        navigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_movies:
+                    MOVIES_SHOWN = true;
+                    showFragment(MoviesListFragment.newInstance());
+                    return true;
+                case R.id.navigation_directors:
+                    MOVIES_SHOWN = false;
+                    showFragment(DirectorsListFragment.newInstance());
+                    return true;
             }
+            return false;
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSaveDialog();
-            }
-        });
+        fab.setOnClickListener(v -> showSaveDialog());
     }
 
     private void showFragment(final Fragment fragment) {

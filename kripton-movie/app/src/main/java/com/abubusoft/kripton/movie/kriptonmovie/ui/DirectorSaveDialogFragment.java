@@ -2,6 +2,8 @@ package com.abubusoft.kripton.movie.kriptonmovie.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.movie.kriptonmovie.R;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
 import com.abubusoft.kripton.movie.kriptonmovie.persistence.BindMovieDataSource;
+import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.DirectorsViewModel;
 
 public class DirectorSaveDialogFragment extends DialogFragment {
     private Context context;
@@ -22,6 +25,7 @@ public class DirectorSaveDialogFragment extends DialogFragment {
 
     private static final String EXTRA_DIRECTOR_FULL_NAME = "director_full_name";
     public static final String TAG_DIALOG_DIRECTOR_SAVE = "dialog_director_save";
+    private DirectorsViewModel directorsViewModel;
 
     public static DirectorSaveDialogFragment newInstance(String directorFullName) {
         DirectorSaveDialogFragment fragment = new DirectorSaveDialogFragment();
@@ -57,6 +61,7 @@ public class DirectorSaveDialogFragment extends DialogFragment {
             directorEditText.setText(directorFullNameExtra);
             directorEditText.setSelection(directorFullNameExtra.length());
         }
+        directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
 
         alertDialogBuilder.setView(view)
                 .setTitle(getString(R.string.dialog_director_title))
@@ -66,12 +71,7 @@ public class DirectorSaveDialogFragment extends DialogFragment {
                         saveDirector(directorEditText.getText().toString());
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
         return alertDialogBuilder.create();
     }
@@ -81,38 +81,6 @@ public class DirectorSaveDialogFragment extends DialogFragment {
             return;
         }
 
-        // this is sinchronous
-        /*DirectorDao directorDao = MoviesDatabase.getDatabase(context).directorDao();
-
-        if (directorFullNameExtra != null) {
-            // clicked on item row -> update
-            Director directorToUpdate = directorDao.findDirectorByName(directorFullNameExtra);
-            if (directorToUpdate != null) {
-                if (!directorToUpdate.fullName.equals(fullName)) {
-                    directorToUpdate.fullName = fullName;
-                    directorDao.update(directorToUpdate);
-                }
-            }
-        } else {
-            directorDao.insert(new Director(fullName));
-        }*/
-
-        BindMovieDataSource.getInstance().executeAsync(daoFactory -> {
-            if (directorFullNameExtra != null) {
-                // clicked on item row -> update
-                Director directorToUpdate = daoFactory.getDirectorDao().findDirectorByName(directorFullNameExtra);
-                if (directorToUpdate != null) {
-                    if (!directorToUpdate.fullName.equals(fullName)) {
-                        directorToUpdate.fullName = fullName;
-                        daoFactory.getDirectorDao().update(directorToUpdate);
-                    }
-                }
-            } else {
-                // i don't need to create a directo to insert
-                daoFactory.getDirectorDao().insert(fullName);
-            }
-            return TransactionResult.COMMIT;
-        });
-
+        directorsViewModel.insertOrUpdate(directorFullNameExtra, fullName);
     }
 }

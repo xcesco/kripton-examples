@@ -29,11 +29,9 @@ dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation "com.android.support:appcompat-v7:${supportVersion}"
     // implementation "com.android.support:appcompat-v4:${supportVersion}"
     implementation "com.android.support:design:${supportVersion}"
-
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
