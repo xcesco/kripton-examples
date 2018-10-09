@@ -47,6 +47,8 @@ public class DirectorSaveDialogFragment extends DialogFragment {
 
         Bundle args = getArguments();
         directorFullNameExtra = args.getString(EXTRA_DIRECTOR_FULL_NAME);
+
+        directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
     }
 
     @NonNull
@@ -59,7 +61,6 @@ public class DirectorSaveDialogFragment extends DialogFragment {
             directorEditText.setText(directorFullNameExtra);
             directorEditText.setSelection(directorFullNameExtra.length());
         }
-        directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
 
         alertDialogBuilder.setView(view)
                 .setTitle(getString(R.string.dialog_director_title))

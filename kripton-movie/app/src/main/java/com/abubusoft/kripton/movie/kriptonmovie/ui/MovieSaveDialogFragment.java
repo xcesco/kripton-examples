@@ -47,6 +47,8 @@ public class MovieSaveDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         movieTitleExtra = args.getString(EXTRA_MOVIE_TITLE);
         movieDirectorFullNameExtra = args.getString(EXTRA_MOVIE_DIRECTOR_FULL_NAME);
+
+        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
     }
 
     @NonNull
@@ -64,7 +66,6 @@ public class MovieSaveDialogFragment extends DialogFragment {
             movieDirectorEditText.setText(movieDirectorFullNameExtra);
             movieDirectorEditText.setSelection(movieDirectorFullNameExtra.length());
         }
-        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
 
         alertDialogBuilder.setView(view)
                 .setTitle(getString(R.string.dialog_movie_title))
