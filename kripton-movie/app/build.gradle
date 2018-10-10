@@ -26,6 +26,12 @@ android {
 dependencies {
     def kriptonVersion = "5.0.0"
     def supportVersion = "28.0.0"
+    def daggerVersion="2.15"
+
+    //Dagger dependencies
+    implementation "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
     implementation fileTree(include: ['*.jar'], dir: 'libs')

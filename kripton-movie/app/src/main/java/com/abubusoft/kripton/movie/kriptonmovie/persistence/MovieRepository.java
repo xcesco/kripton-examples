@@ -7,14 +7,17 @@ import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Movie;
 import com.abubusoft.kripton.movie.kriptonmovie.model.MovieWithDirector;
 import com.abubusoft.kripton.movie.kriptonmovie.persistence.datasource.BindMovieDataSource;
+import com.abubusoft.kripton.movie.kriptonmovie.persistence.datasource.DirectorDaoImpl;
+import com.abubusoft.kripton.movie.kriptonmovie.persistence.datasource.MovieDaoImpl;
 
 import java.util.List;
 
-public class MovieRepository {
-    private static MovieRepository instance;
+import javax.inject.Inject;
 
-    private MovieRepository() {
-        dataSource = BindMovieDataSource.getInstance();
+public class MovieRepository {
+
+    public MovieRepository(BindMovieDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     BindMovieDataSource dataSource;
@@ -80,14 +83,6 @@ public class MovieRepository {
             return TransactionResult.COMMIT;
         });
     }
-    
-    public static MovieRepository getInstance() {
-        if (instance==null) {
-            instance=new MovieRepository();
-        }
-        
-        return instance;
-    }
 
     public void clearDb() {
         dataSource.clearDbAsync();
@@ -119,27 +114,28 @@ public class MovieRepository {
                 }
             }
 
+            MovieDaoImpl movieDao = daoFactory.getMovieDao();
             if (movieTitleExtra != null) {
                 // clicked on item row -> update
-                Movie movieToUpdate = daoFactory.getMovieDao().findMovieByTitle(movieTitleExtra);
+                Movie movieToUpdate = movieDao.findMovieByTitle(movieTitleExtra);
                 if (movieToUpdate != null) {
                     if (!movieToUpdate.title.equals(movieTitle)) {
                         movieToUpdate.title = movieTitle;
                         if (directorId != -1) {
                             movieToUpdate.directorId = directorId;
                         }
-                        daoFactory.getMovieDao().update(movieToUpdate);
+                        movieDao.update(movieToUpdate);
                     }
                 }
             } else {
                 // we can have many movies with same title but different director
-                Movie newMovie = daoFactory.getMovieDao().findMovieByTitle(movieTitle);
+                Movie newMovie = movieDao.findMovieByTitle(movieTitle);
                 if (newMovie == null) {
-                    daoFactory.getMovieDao().insert(movieTitle, directorId);
+                    movieDao.insert(movieTitle, directorId);
                 } else {
                     if (newMovie.directorId != directorId) {
                         newMovie.directorId = directorId;
-                        daoFactory.getMovieDao().update(newMovie);
+                        movieDao.update(newMovie);
                     }
                 }
             }
