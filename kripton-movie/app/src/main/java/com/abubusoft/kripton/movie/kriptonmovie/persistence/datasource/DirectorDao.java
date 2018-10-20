@@ -14,7 +14,7 @@ import java.util.List;
 
 @BindDao(Director.class)
 public interface DirectorDao {
-    @BindSqlSelect(where = "id = :id LIMIT 1")
+    @BindSqlSelect(where = "did = :id LIMIT 1")
     Director findDirectorById(long id);
 
     @BindSqlSelect(where = "fullName = :fullName LIMIT 1")

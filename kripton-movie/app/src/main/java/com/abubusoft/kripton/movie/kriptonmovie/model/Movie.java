@@ -12,7 +12,7 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
         indexes = {@BindIndex("title"), @BindIndex("directorId")})
 public class Movie {
 
-    //@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY, value = "mid")
+    @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY, value = "mid")
     public long id;
 
     @NonNull
