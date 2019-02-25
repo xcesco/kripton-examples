@@ -31,7 +31,7 @@ This example get an BBC's RSS feed channel (XML) from a REST service, store feed
 
 <img width="300px" src="https://github.com/xcesco/wikis/blob/master/kripton/rss-reader.gif"/>
 
-Code is available <a href="https://github.com/xcesco/kripton-examples/tree/master/kotlin-rss-reader">here</a>.
+Code is available <a href="https://github.com/xcesco/kripton-examples/tree/master/rss-reader">here</a>.
 
 The RSS Feed is here:
 ```
