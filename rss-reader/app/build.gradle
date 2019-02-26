@@ -1,18 +1,29 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+            storeFile file(System.getenv("GRADLE_KEYSTORE_FILE"))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
+        }
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.abubusoft.kripton.examples.rssreader"
         minSdkVersion 19
-        versionCode 10001
-        versionName "1.0.1"
+        versionCode 10002
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), file(System.getenv("GRADLE_PROGUARD_CONFIG_FILE"))
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
         }
     }
     compileOptions {
@@ -23,7 +34,7 @@ android {
 
 dependencies {
     def appCompatVersion = "28.0.0"
-    def kriptonVersion = "6.0.0-rc.2"
+    def kriptonVersion = "6.0.0-rc.3"
     def lifecycleVersion = "1.1.1"
     def nav_version = "1.0.0-rc01"
 
