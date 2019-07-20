@@ -12,9 +12,11 @@ public class CheesePopulator implements SQLitePopulator {
     public void execute() {
         BindCheeseDataSource.getInstance().executeAsync(daoFactory -> {
             Cheese cheese;
-            for (String item: CHEESE_DATA) {
-                cheese=new Cheese(item);
-                daoFactory.getCheeseDao().insert(cheese);
+            for (int i=0;i<4;i++) {
+                for (String item : CHEESE_DATA) {
+                    cheese = new Cheese(item + i);
+                    daoFactory.getCheeseDao().insert(cheese);
+                }
             }
             return TransactionResult.COMMIT;
         });

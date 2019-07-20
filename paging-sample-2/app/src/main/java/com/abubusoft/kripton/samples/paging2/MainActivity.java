@@ -1,10 +1,14 @@
 package com.abubusoft.kripton.samples.paging2;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.samples.paging2.R;
+import com.abubusoft.kripton.samples.paging2.com.abubusoft.kripton.widgetx.KriptonRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,30 +38,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.inputText=findViewById(R.id.inputText);
-        this.addButton=findViewById(R.id.addButton);
-        this.cheeseList=findViewById(R.id.cheeseList);
-        this.progressBar=findViewById(R.id.progressBar);
+        this.inputText = findViewById(R.id.inputText);
+        this.addButton = findViewById(R.id.addButton);
+        this.cheeseList = findViewById(R.id.cheeseList);
+        this.progressBar = findViewById(R.id.progressBar);
 
-        this.tvCurrentPage=findViewById(R.id.textViewCurrentPage);
-        this.tvCount=findViewById(R.id.textViewCount);
+        this.tvCurrentPage = findViewById(R.id.textViewCurrentPage);
+        this.tvCount = findViewById(R.id.textViewCount);
 
-        this.refreshButton=findViewById(R.id.refreshButton);
-        this.nextButton=findViewById(R.id.nextButton);
+        this.refreshButton = findViewById(R.id.refreshButton);
+        this.nextButton = findViewById(R.id.nextButton);
 
-        viewModel=ViewModelProviders.of(this).get(CheeseViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(CheeseViewModel.class);
 
-        adapter = new CheeseAdapter(viewModel.getAllCheeses());
-        cheeseList.setAdapter(adapter);
+        adapter = new CheeseAdapter(this, viewModel.getAllCheeses(), null, (loading, position, lenght, total) -> {
 
-        this.viewModel.getAllCheeses().observe(this, cheeses -> {
-            adapter.update(cheeses);
-            tvCurrentPage.setText(this.viewModel.getCurrentPageIndex()+" / ");
-            this.progressBar.setVisibility(View.INVISIBLE);
+            if (loading) {
+                this.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                //tvCurrentPage.setText(total);
+                this.progressBar.setVisibility(View.INVISIBLE);
+            }
         });
 
-        this.viewModel.getCheeseCount().observe(this, value -> tvCount.setText(""+value));
+        cheeseList.setAdapter(adapter);
 
+//        this.viewModel.getAllCheeses().observe(this, cheeses -> {
+//            adapter.update(cheeses);
+//            tvCurrentPage.setText(this.viewModel.getCurrentPageIndex()+" / ");
+//            this.progressBar.setVisibility(View.INVISIBLE);
+//        });
 
         initButtons();
         initSwipeToDelete();
@@ -84,13 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.nextPage();
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
 
     }
 
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return  makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+                return makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
             }
 
             @Override
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.remove(((CheeseAdapter.CheeseViewHolder)viewHolder).item);
+                viewModel.remove(((CheeseAdapter.CheeseViewHolder) viewHolder).item);
                 progressBar.setVisibility(View.VISIBLE);
             }
         }).attachToRecyclerView(cheeseList);
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addCheese() {
         String newCheese = inputText.getText().toString().trim();
-        if (newCheese.length()>0) {
+        if (newCheese.length() > 0) {
             viewModel.insert(newCheese);
             inputText.setText("");
         }
