@@ -1,10 +1,10 @@
 package com.abubusoft.kripton.samples.paging;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+import androidx.annotation.NonNull;
 
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -62,10 +62,10 @@ public class CheeseViewModel extends AndroidViewModel {
     }
 
     public int getCurrentPageIndex() {
-        return allCheeses.getPage();
+        return allCheeses.getPageNumber();
     }
 
     public boolean isFirstPage() {
-        return allCheeses.getPage()==0;
+        return allCheeses.getPageNumber()==0;
     }
 }

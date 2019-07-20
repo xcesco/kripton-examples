@@ -1,37 +1,21 @@
 package com.abubusoft.kripton.samples.paging2;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abubusoft.kripton.samples.paging2.R;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
+import com.abubusoft.kripton.androidx.widgets.CustomDiffCallback;
+import com.abubusoft.kripton.samples.paging2.com.abubusoft.kripton.widgetx.KriptonRecyclerViewAdapter;
+import com.abubusoft.kripton.samples.paging2.com.abubusoft.kripton.widgetx.KriptonViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecyclerViewAdapter.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class AbstractRecyclerViewAdapter<VH extends AbstractRecyclerViewAdapter.ViewHolder > extends KriptonRecyclerViewAdapter<Cheese, VH> {
 
-    public AbstractRecyclerViewAdapter() {
-        dataset = new ArrayList<T>();
-    }
 
-    public ArrayList<T> dataset;
-
-    public void removeAt(int position) {
-        dataset.remove(position);
-    }
-
-    public T get(int position) {
-        return dataset.get(position);
-    }
-
-    public boolean isEmpty() {
-        return dataset.isEmpty();
-    }
-
-    public void clear() {
-        dataset.clear();
+    public AbstractRecyclerViewAdapter(androidx.lifecycle.LifecycleOwner context, PagedLiveData<List<Cheese>> pagedResult, CustomDiffCallback<Cheese> diff, OnLoadingListener loadingListener) {
+        super(context, pagedResult, diff, loadingListener);
     }
 
     public static class Utility {
@@ -44,7 +28,7 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static abstract class ViewHolder extends RecyclerView.ViewHolder {
+    public static abstract class ViewHolder extends KriptonViewHolder<Cheese> {
 
         public ViewHolder(ViewGroup parent,
                           int viewType) {
@@ -54,39 +38,11 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
 
         public abstract void bindToView(View parentView);
 
-        abstract View getViewLayoutResourceId(ViewGroup parent,
-                                              int viewType);
+
     }
 
-    public void add(int position, T item) {
-        dataset.add(position, item);
-        notifyItemInserted(position);
-    }
-
-    public void update(List<T> items) {
-        if (items.size() != dataset.size()) {
-            dataset.clear();
-
-            dataset.addAll(items);
-            notifyDataSetChanged();
-        }
-    }
-
-    public void remove(T item) {
-        int position = dataset.indexOf(item);
-        dataset.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public AbstractRecyclerViewAdapter(ArrayList<T> myDataset) {
-        dataset = myDataset;
-    }
-
-    // Create new views (invoked by the layout manager)
     @Override
-    public VH onCreateViewHolder(ViewGroup parent,
-                                 int viewType) {
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(getViewLayoutResourceId(), parent, false);
         // set the view's size, margins, paddings and layout parameters
@@ -95,11 +51,9 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
         return vh;
     }
 
-    public abstract VH createViewHolder(View view);
-
     public abstract int getViewLayoutResourceId();
 
-    public abstract void onBindItem(VH holder, T item);
+    public abstract void onBindItem(VH holder, Cheese item);
 
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -108,15 +62,9 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        final T item = dataset.get(position);
+        final Cheese item = viewBuffer.get(position);
 
         onBindItem(holder, item);
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return dataset.size();
     }
 
 }  

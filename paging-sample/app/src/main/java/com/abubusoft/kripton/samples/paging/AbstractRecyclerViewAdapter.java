@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.samples.paging;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,11 +68,6 @@ public abstract class AbstractRecyclerViewAdapter<T, VH extends AbstractRecycler
        // }
     }
 
-    public void remove(T item) {
-        int position = dataset.indexOf(item);
-        dataset.remove(position);
-        notifyItemRemoved(position);
-    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AbstractRecyclerViewAdapter(ArrayList<T> myDataset) {

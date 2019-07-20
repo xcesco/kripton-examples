@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    def kriptonVersion = "5.0.0"
+    def kriptonVersion = "6.0.0-rc.13"
     def supportVersion = "28.0.0"
     def daggerVersion = "2.15"
 

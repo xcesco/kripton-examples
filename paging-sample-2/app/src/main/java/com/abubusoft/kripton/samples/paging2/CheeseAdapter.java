@@ -1,52 +1,38 @@
 package com.abubusoft.kripton.samples.paging2;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.lifecycle.LifecycleOwner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.PageRequest;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
+import com.abubusoft.kripton.androidx.widgets.CustomDiffCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CheeseAdapter extends RecyclerView.Adapter<CheeseAdapter.CheeseViewHolder> {
+public class CheeseAdapter extends AbstractRecyclerViewAdapter<CheeseAdapter.CheeseViewHolder> {
 
-    private boolean firstUpdate=true;
+    public CheeseAdapter(LifecycleOwner context, PagedLiveData<List<Cheese>> pagedResult, CustomDiffCallback<Cheese> diff, OnLoadingListener loadingListener) {
+        super(context, pagedResult, diff, loadingListener);
+    }
 
-    private final PageRequest pageRequest;
-
-    List<Cheese> items;
-
-    public class CheeseViewHolder extends RecyclerView.ViewHolder {
+    public class CheeseViewHolder extends AbstractRecyclerViewAdapter.ViewHolder {
         public TextView nameView;
         public Cheese item;
 
-        public CheeseViewHolder(View view) {
-            super(view);
+        public CheeseViewHolder(ViewGroup parent,
+                                int viewType) {
+            super(parent, viewType);
+
             nameView = itemView.findViewById(R.id.name);
         }
-    }
 
-    public CheeseAdapter(PageRequest pageRequest) {
-        this.items = new ArrayList<>();
-        this.pageRequest=pageRequest;
-    }
-
-    public void update(List<Cheese> items) {
-        if (firstUpdate) {
-            this.items.clear();
-            firstUpdate=false;
-            
-            //this.pageRequest.set
-        } else {
+        @Override
+        public void bindToView(View parentView) {
 
         }
-        this.items.addAll(items);
 
-        notifyDataSetChanged();
     }
 
     @Override
@@ -54,24 +40,21 @@ public class CheeseAdapter extends RecyclerView.Adapter<CheeseAdapter.CheeseView
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cheese_item, parent, false);
 
-        return new CheeseViewHolder(itemView);
+        return new CheeseViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(CheeseViewHolder holder, int position) {
-        if (position==items.size()-1) {
-            Logger.info("********************* pos: %3d, row: %3d",position, pageRequest.getOffset());
-            this.pageRequest.nextPage();
+    public int getViewLayoutResourceId() {
+        return R.layout.cheese_item;
+    }
+
+    @Override
+    public void onBindItem(CheeseViewHolder holder, Cheese item) {
+        holder.item = item;
+
+        if (item!=null) {
+            holder.nameView.setText(holder.item.getName());
         }
-
-        Logger.info(">> item: %3d --> pos: %3d with firstRow: %3d",position, position, pageRequest.getOffset());
-        holder.item = items.get(position);
-        holder.nameView.setText(holder.item.getName());
     }
 
-    @Override
-    public int getItemCount() {
-       // Logger.info("{{ array size: %3d <--> official size: %3d with firstRow: %3d }}",items.size(), pageRequest.getFirstRow()+pageRequest.getPageSize(), pageRequest.getFirstRow());
-        return items.size();
-    }
 }
