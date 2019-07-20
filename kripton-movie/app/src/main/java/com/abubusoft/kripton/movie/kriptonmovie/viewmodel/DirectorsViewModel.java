@@ -4,20 +4,24 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.movie.kriptonmovie.model.Director;
 import com.abubusoft.kripton.movie.kriptonmovie.persistence.MovieRepository;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DirectorsViewModel extends AndroidViewModel {
 
     private final MovieRepository repository;
     private LiveData<List<Director>> directorsLiveData;
 
-    public DirectorsViewModel(Application application) {
-        super(application);
+    @Inject
+    public DirectorsViewModel(MovieRepository movieRepository) {
+        super((Application) KriptonLibrary.getContext());
 
-        repository=MovieRepository.getInstance();
+        repository=movieRepository;
         directorsLiveData = repository.getAllDirectors();
     }
 

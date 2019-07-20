@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.movie.kriptonmovie.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 
 import com.abubusoft.kripton.movie.kriptonmovie.R;
 import com.abubusoft.kripton.movie.kriptonmovie.persistence.MovieRepository;
+import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.DirectorsViewModel;
+import com.abubusoft.kripton.movie.kriptonmovie.viewmodel.MoviesViewModel;
 
 import static com.abubusoft.kripton.movie.kriptonmovie.ui.DirectorSaveDialogFragment.TAG_DIALOG_DIRECTOR_SAVE;
 import static com.abubusoft.kripton.movie.kriptonmovie.ui.MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean MOVIES_SHOWN = true;
     private Fragment shownFragment;
+    private MoviesViewModel moviesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         setToolbar(getString(R.string.app_name));
         initView();
+
+        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
+
 
         if (savedInstanceState == null) {
             showFragment(MoviesListFragment.newInstance());
@@ -113,6 +120,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reCreateDatabase() {
-        MovieRepository.getInstance().clearDb();
+        moviesViewModel.clearDb();
     }
 }

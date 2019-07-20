@@ -30,6 +30,6 @@ public interface MovieDao {
     @BindSqlDelete
     void deleteAll();
 
-    @BindSqlSelect(jql="select Movie.title title, director.fullName fullName from Movie, Director where director.id=movie.directorId order By title ASC")
+    @BindSqlSelect(jql="select Movie.title title, director.fullName fullName from Movie, Director where director.did=movie.directorId order By title ASC")
     LiveData<List<MovieWithDirector>> getAllMovies();
 }

@@ -9,8 +9,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 @BindSqlType(name = "director")
 public class Director {
-    //@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY, value = "did")
-    public long id;
+    @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
+    public long did;
 
     @NonNull
     @BindSqlColumn(value="full_name", columnType = ColumnType.UNIQUE)

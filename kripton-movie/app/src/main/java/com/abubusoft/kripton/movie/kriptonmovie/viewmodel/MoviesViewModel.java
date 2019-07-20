@@ -5,19 +5,23 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.movie.kriptonmovie.model.MovieWithDirector;
 import com.abubusoft.kripton.movie.kriptonmovie.persistence.MovieRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MoviesViewModel extends AndroidViewModel {
     private final MovieRepository repository;
     private LiveData<List<MovieWithDirector>> moviesLiveData;
 
-    public MoviesViewModel(@NonNull Application application) {
-        super(application);
+    @Inject
+    public MoviesViewModel(@NonNull MovieRepository movieRepository) {
+        super((Application)KriptonLibrary.getContext());
 
-        repository = MovieRepository.getInstance();
+        repository =movieRepository;
         moviesLiveData = repository.getAllMovies();
     }
 
@@ -31,5 +35,9 @@ public class MoviesViewModel extends AndroidViewModel {
 
     public void insertOrUpdateMovie(String movieTitle, String movieTitleExtra, String movieDirectorFullName) {
         repository.insertOrUpdateMovie(movieTitle, movieTitleExtra, movieDirectorFullName);
+    }
+
+    public void clearDb() {
+        repository.clearDb();
     }
 }

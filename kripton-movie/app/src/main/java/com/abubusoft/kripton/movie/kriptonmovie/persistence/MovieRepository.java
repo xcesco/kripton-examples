@@ -95,7 +95,7 @@ public class MovieRepository {
                 // clicked on item row -> update
                 Director directorToUpdate = daoFactory.getDirectorDao().findDirectorByName(movieDirectorFullName);
                 if (directorToUpdate != null) {
-                    directorId = directorToUpdate.id;
+                    directorId = directorToUpdate.did;
 
                     if (!directorToUpdate.fullName.equals(movieDirectorFullName)) {
                         directorToUpdate.fullName = movieDirectorFullName;
@@ -110,7 +110,7 @@ public class MovieRepository {
                 if (newDirector == null) {
                     directorId = (int) daoFactory.getDirectorDao().insert(movieDirectorFullName);
                 } else {
-                    directorId = newDirector.id;
+                    directorId = newDirector.did;
                 }
             }
 

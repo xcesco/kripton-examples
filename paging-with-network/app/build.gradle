@@ -22,7 +22,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.target_sdk
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.android.example.paging.pagingwithnetwork"
         minSdkVersion build_versions.min_sdk
