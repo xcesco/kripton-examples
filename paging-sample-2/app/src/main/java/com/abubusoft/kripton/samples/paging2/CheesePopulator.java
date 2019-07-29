@@ -1,8 +1,12 @@
 package com.abubusoft.kripton.samples.paging2;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.samples.paging2.BindCheeseDataSource;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class CheesePopulator implements SQLitePopulator {
     /**
@@ -11,14 +15,31 @@ public class CheesePopulator implements SQLitePopulator {
     @Override
     public void execute() {
         BindCheeseDataSource.getInstance().executeAsync(daoFactory -> {
-            Cheese cheese;
-            for (int i=0;i<4;i++) {
-                for (String item : CHEESE_DATA) {
-                    cheese = new Cheese(item + i);
-                    daoFactory.getCheeseDao().insert(cheese);
+            try {
+                InputStream inputStream = KriptonLibrary.getContext().getAssets().open("cheese.jpg");
+
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    output.write(buffer, 0, bytesRead);
                 }
+
+                byte file[] = output.toByteArray();
+
+                Cheese cheese;
+                for (int i=0;i<4;i++) {
+                    for (String item : CHEESE_DATA) {
+                        cheese = new Cheese(item + i, file);
+                        daoFactory.getCheeseDao().insert(cheese);
+                    }
+                }
+                return TransactionResult.COMMIT;
+            } catch (Throwable e) {
+                e.printStackTrace();
+                return TransactionResult.ROLLBACK;
             }
-            return TransactionResult.COMMIT;
+
         });
     }
 

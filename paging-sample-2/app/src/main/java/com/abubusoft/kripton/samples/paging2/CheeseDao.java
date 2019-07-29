@@ -19,6 +19,9 @@ public interface CheeseDao {
     @BindSqlSelect(orderBy = "name COLLATE NOCASE ASC", pageSize = 50)
     PagedLiveData<List<Cheese>> allCheesesByName();
 
+    @BindSqlSelect(orderBy = "name COLLATE NOCASE ASC", pageSize = 50)
+    List<Cheese> findAllCheesesByName();
+
     @BindSqlSelect(fields = "count(*)")
     LiveData<Integer> countAllCheeses();
 

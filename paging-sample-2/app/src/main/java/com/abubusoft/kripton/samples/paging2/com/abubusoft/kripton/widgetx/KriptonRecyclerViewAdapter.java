@@ -1,5 +1,6 @@
 package com.abubusoft.kripton.samples.paging2.com.abubusoft.kripton.widgetx;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,6 +69,7 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> exte
 
             this.pagedResult = pagedResult;
             this.chunks = new MaxSizeHashMap<>(4);
+            //this.chunks=new HashMap<>();
             this.pageSize = pagedResult.getPageSize();
             this.loading.set(true);
             lowerLimit = Math.round(pageSize * 0.3333f);
@@ -85,17 +87,13 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> exte
                         return f;
                     }).doOnNext(page -> {
                 if (loadingListener != null) {
-                    Runnable myRunnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            loadingListener.onChangeStatus(true, page, -1, pagedResult.getTotalElements());
-                        } // This is your code
-                    };
+                    // This is your code
+                    Runnable myRunnable = () -> loadingListener.onChangeStatus(true, page, -1, pagedResult.getTotalElements());
                     mainHandler.post(myRunnable);
 
                 }
             })
-                    .map(page -> new PageChunk<E>(page, pagedResult.getExecutor().execute(page, pagedResult.getPageSize())))
+                    .map(page -> new PageChunk<>(page, pagedResult.getExecutor().execute(page, pagedResult.getPageSize())))
                     .subscribeOn(Schedulers.from(KriptonLibrary.getExecutorService()))
                     .subscribe(chunk -> {
                         Logger.info("++++++++++++++++subscriber " + Thread.currentThread().getName());
@@ -104,25 +102,21 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> exte
 
                         //notifyItemRangeChanged(chunk.getPageNumber() * pageSize, chunk.getData().size());
                         if (positionMinToNotify <= positionMaxToNotify) {
-                            Runnable myRunnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    notifyItemRangeChanged(positionMinToNotify, positionMaxToNotify - positionMinToNotify + 1);
-                                } // This is your code
+                            // This is your code
+                            Runnable myRunnable = () -> {
+                                Logger.info("++++++++++++++++change %s %s", positionMinToNotify, positionMaxToNotify - positionMinToNotify + 1);
+                                notifyItemRangeChanged(positionMinToNotify, positionMaxToNotify - positionMinToNotify + 1);
+                                positionMinToNotify = pagedResult.getTotalElements();
+                                positionMaxToNotify = 0;
                             };
                             mainHandler.post(myRunnable);
 
                         }
-                        positionMinToNotify = pagedResult.getTotalElements();
-                        positionMaxToNotify = 0;
+
 
                         if (loadingListener != null) {
-                            Runnable myRunnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    loadingListener.onChangeStatus(false, chunk.getPageNumber(), chunk.getData().size(), pagedResult.getTotalElements());
-                                } // This is your code
-                            };
+                            // This is your code
+                            Runnable myRunnable = () -> loadingListener.onChangeStatus(false, chunk.getPageNumber(), chunk.getData().size(), pagedResult.getTotalElements());
                             mainHandler.post(myRunnable);
 
                         }
@@ -133,7 +127,8 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> exte
                 pagedResult.observeForever(data -> {
                     chunks.clear();
                     chunks.put(0, new PageChunk<E>(0, data));
-                    notifyItemRangeChanged(0, data.size());
+                    //notifyItemRangeChanged(0, data.size());
+                    notifyDataSetChanged();
                     if (loadingListener != null) {
                         loadingListener.onChangeStatus(false, 0, data.size(), pagedResult.getTotalElements());
                     }
@@ -148,7 +143,8 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> exte
                 pagedResult.observe(context, data -> {
                     chunks.clear();
                     chunks.put(0, new PageChunk<E>(0, data));
-                    notifyItemRangeChanged(0, data.size());
+                    //notifyItemRangeChanged(0, data.size());
+                    notifyDataSetChanged();
                     if (loadingListener != null) {
                         loadingListener.onChangeStatus(false, 0, data.size(), pagedResult.getTotalElements());
                     }

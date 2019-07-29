@@ -28,7 +28,7 @@ public class CheeseViewModel extends AndroidViewModel {
 
     public void insert(String text) {
         dataSource.executeAsync(daoFactory -> {
-            daoFactory.getCheeseDao().insert(new Cheese(text));
+            daoFactory.getCheeseDao().insert(new Cheese(text, null));
             return TransactionResult.COMMIT;
         });
     }
